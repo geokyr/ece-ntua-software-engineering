@@ -1,0 +1,246 @@
+{
+	"info": {
+		"_postman_id": "e2af1962-6f6b-4804-8f6c-97f32d547768",
+		"name": "softEng",
+		"description": "The softEng API is responsible for the interoperability on motorway tolls. It provides endpoints for retrieving information about all stations of each toll provider, like the amount of money each provider owes to the other and when and which vehicles passed from a specific station.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PassesPerStation",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3001/PassesPerStation?stationID=KO01&date_from=20190101&date_to=20190110&format=csv",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"PassesPerStation"
+					],
+					"query": [
+						{
+							"key": "stationID",
+							"value": "KO01"
+						},
+						{
+							"key": "date_from",
+							"value": "20190101"
+						},
+						{
+							"key": "date_to",
+							"value": "20190110"
+						},
+						{
+							"key": "format",
+							"value": "csv"
+						}
+					]
+				},
+				"description": "Returns all the passes for a station in a specific period with station id and period provided in the params of the url."
+			},
+			"response": []
+		},
+		{
+			"name": "PassesAnalysis",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3001/PassesAnalysis?op1_ID=aodos&op2_ID=kentriki_odos&date_from=20211005&date_to=20211110&format=csv",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"PassesAnalysis"
+					],
+					"query": [
+						{
+							"key": "op1_ID",
+							"value": "aodos"
+						},
+						{
+							"key": "op2_ID",
+							"value": "kentriki_odos"
+						},
+						{
+							"key": "date_from",
+							"value": "20211005"
+						},
+						{
+							"key": "date_to",
+							"value": "20211110"
+						},
+						{
+							"key": "format",
+							"value": "csv"
+						}
+					]
+				},
+				"description": "Returns all the passes between two toll providers in a specific period with ids and period provided in the params of the url."
+			},
+			"response": []
+		},
+		{
+			"name": "PassesCost",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3001/PassesCost?op1_ID=aodos&op2_ID=gefyra&date_from=20211005&date_to=20211110&format=csv",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"PassesCost"
+					],
+					"query": [
+						{
+							"key": "op1_ID",
+							"value": "aodos"
+						},
+						{
+							"key": "op2_ID",
+							"value": "gefyra"
+						},
+						{
+							"key": "date_from",
+							"value": "20211005"
+						},
+						{
+							"key": "date_to",
+							"value": "20211110"
+						},
+						{
+							"key": "format",
+							"value": "csv"
+						}
+					]
+				},
+				"description": "Returns the amount of money op2_ID owes to op1_ID in a specific period with ids and period provided in the params of the url."
+			},
+			"response": []
+		},
+		{
+			"name": "ChargesBy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3001/ChargesBy?op_ID=aodos&date_from=20211005&date_to=20211110&format=csv",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"ChargesBy"
+					],
+					"query": [
+						{
+							"key": "op_ID",
+							"value": "aodos"
+						},
+						{
+							"key": "date_from",
+							"value": "20211005"
+						},
+						{
+							"key": "date_to",
+							"value": "20211110"
+						},
+						{
+							"key": "format",
+							"value": "csv"
+						}
+					]
+				},
+				"description": "Returns the amount of money each visiting operator owes to a specific operator in a period, with operator id and period provided in the params of the url."
+			},
+			"response": []
+		},
+		{
+			"name": "admin/healthcheck",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3001/admin/healthcheck",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"admin",
+						"healthcheck"
+					]
+				},
+				"description": "Checks if there is connection with database."
+			},
+			"response": []
+		},
+		{
+			"name": "/admin/resetpasses",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:3001/admin/resetpasses",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"admin",
+						"resetpasses"
+					]
+				},
+				"description": "Initialize pass collection in database."
+			},
+			"response": []
+		},
+		{
+			"name": "/admin/resetstations",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:3001/admin/resetstations",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"admin",
+						"resetstations"
+					]
+				},
+				"description": "Initialize station collection in database."
+			},
+			"response": []
+		},
+		{
+			"name": "/admin/resetvehicles",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:3001/admin/resetvehicles",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"admin",
+						"resetvehicles"
+					]
+				},
+				"description": "Initialize vehicle collection in database."
+			},
+			"response": []
+		}
+	]
+}
