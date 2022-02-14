@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 
 const vehicleSchema = new mongoose.Schema({
     vehicleID: {
-      type: String
+      type: String,
+      unique: true
     },
     tagID: {
       type: String

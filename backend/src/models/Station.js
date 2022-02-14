@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 
 const stationSchema = new mongoose.Schema({
   stationID: {
-    type: String
+    type: String,
+    unique:true
   },
   stationProvider: {
     type: String

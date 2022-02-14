@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const passSchema = new mongoose.Schema({
   passID: {
     type: String,
+    unique: true
   },
   timestamp: {
     type: Date,

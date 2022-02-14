@@ -1,12 +1,16 @@
 const mongoose = require("mongoose");
 
 function checkMongoConnection() {
-  if (mongoose.connection.readyState == 0) {
-    return 0;
-  }
+
+  // We need binary ready state ({1} = Connected, {0, 2, 3} = Disconnected )
   if (mongoose.connection.readyState == 1) {
     return 1;
   }
+  else {
+    return 0;
+  }
+
+
 }
 
 module.exports = { checkMongoConnection };
