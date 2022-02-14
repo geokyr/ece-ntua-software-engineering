@@ -39,8 +39,6 @@ router.get(
             let finalObject = {};
             let passesList = [];
             //get passes from database based on the parameteres
-            console.log("req.query: ", req.query);
-            console.log("req.params: ", req.params);
 
             const passes = await Pass.find({
                 stationRef: req.params.stationID,
