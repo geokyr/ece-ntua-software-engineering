@@ -48,36 +48,10 @@ router.get(
                 ],
             });
 
-<<<<<<< HEAD
-// Επιστρέφεται λίστα με τις διελεύσεις που πραγματοποιήθηκαν με tag του op2_ID σε σταθμούς του op1_ID
-router.get("/PassesAnalysis", async (req, res) => {
-  try {
-    //get all stationIds from stationProvider
-    const stationIds = await Station.find(
-      { stationProvider: req.query.op1_ID },
-      ["stationID", "-_id"]
-    );
-    //convert array of objects to array
-    let arrayOfStationIds = [];
-    stationIds.map((stationId) => {
-      arrayOfStationIds.push(stationId.stationID);
-    });
-    //get all vehicleIds from the op2_ID
-    const vehicleIds = await Vehicle.find({ tagProvider: req.query.op2_ID }, [
-      "vehicleID",
-      "-_id",
-    ]);
-    //convert array of objects to array
-    let arrayOfVehicleIds = [];
-    vehicleIds.map((vehicleId) => {
-      arrayOfVehicleIds.push(vehicleId.vehicleID);
-    });
-=======
             //get station details from database based on stationId
             const stationDetails = await Station.findOne({
                 stationID: req.params.stationID,
             });
->>>>>>> 971bc7f655752bf9820dd010f97446236748b830
 
             // If station  was not found, throw error
             if (!stationDetails) throw new Error("404");
