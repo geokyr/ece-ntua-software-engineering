@@ -1,0 +1,4 @@
+#!/bin/bash
+./$@
+
+# export PATH=$PATH:$HOME/TL21-23/cli

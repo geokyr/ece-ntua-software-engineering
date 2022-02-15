@@ -1,8 +1,9 @@
+#!/usr/bin/env python3
 import argparse
 import requests
 
-my_parser = argparse.ArgumentParser(description='returns the amount of money op2_ID owes \
-    to op1_ID in a specific period with ids and period provided in the params of the url')
+my_parser = argparse.ArgumentParser(description='returns all the passes between two toll \
+    providers in a specific period with ids and period provided in the params of the url')
 my_parser.add_argument('--op1', metavar='operator_id', type=str, 
                         help='select the station operator')
 my_parser.add_argument('--op2', metavar='operator_id', type=str, 
@@ -15,7 +16,7 @@ my_parser.add_argument('--format', metavar='{json|csv}', type=str,
                         help='select the format type of the output (json or csv)')
 args = my_parser.parse_args()
 
-url = 'http://127.0.0.1:9103/PassesCost/' + args.op1 + '/' + args.op2 + '/' + args.datefrom + '/' + args.dateto + '?format=' + args.format
+url = 'http://127.0.0.1:9103/PassesAnalysis/' + args.op1 + '/' + args.op2 + '/' + args.datefrom + '/' + args.dateto + '?format=' + args.format
 r = requests.get(url)
 
 try:    
