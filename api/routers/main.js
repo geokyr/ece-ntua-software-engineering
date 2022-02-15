@@ -91,7 +91,7 @@ router.get("/PassesPerStation",async (req, res) => {
   }
 });
 
-//Επιστρέφεται λίστα με την ανάλυση ανά σημείο των γεγονότων διέλευσης που πραγματοποιήθηκαν με tag του op2_ID σε σταθμούς του op1_ID
+// Επιστρέφεται λίστα με τις διελεύσεις που πραγματοποιήθηκαν με tag του op2_ID σε σταθμούς του op1_ID
 router.get("/PassesAnalysis", async (req, res) => {
   try {
     //get all stationIds from stationProvider

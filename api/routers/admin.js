@@ -5,22 +5,21 @@ const Pass = require("../../backend/src/models/Pass");
 const csv = require("csvtojson");
 const moment = require("moment");
 
-
 const {
   checkMongoConnection,
 } = require("../../backend/src/database/connectivity");
 
 const router = new express.Router();
 
-router.get("/admin/healthcheck", (req, res) => {
+router.get("/admin/healthcheck",  async (req, res) => {
   // ready states being:
   // 0: disconnected
-  // 1: connected
-  if (checkMongoConnection() == 0) {
+  // 1: connected  
+  const result = checkMongoConnection();
+  if (result == 0) {
     res.status(500).send({ status: "failed", dbconnection: "disconnected" });
   }
-
-  if (checkMongoConnection() == 1) {
+  if (result == 1) {
     res.status(200).send({ status: "OK", dbconnection: "connected" });
   }
 });
