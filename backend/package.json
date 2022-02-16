@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "env-cmd -f ./configuration/test.env jest --watch --detectOpenHandles",
+    "test_backend": "env-cmd -f ./configuration/test.env jest --watch --detectOpenHandles ./tests_backend",
+    "test_api": "env-cmd -f ./configuration/test.env jest --watch --detectOpenHandles ./tests_api",
     "start": "env-cmd -f ./configuration/dev.env nodemon src/index.js"
   },
   "jest": {
