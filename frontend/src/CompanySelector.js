@@ -54,12 +54,9 @@ export default function CompanySelector(props) {
           onChange={handleChange}
           input={<BootstrapInput />}
         >
-          <MenuItem value="Select operator">
-            <em>Select operator</em>
-          </MenuItem>
           {
-            props.companies.map((comp) => (
-              <MenuItem value={comp.name}>{comp.name}</MenuItem>
+            props.companies.map((comp, index) => (
+              <MenuItem key={index} value={comp}>{comp.name}</MenuItem>
             ))
           }
         </Select>

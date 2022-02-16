@@ -31,7 +31,7 @@ router.get(
       //check if query params are invalid
       if (
         new Date(moment(req.params.date_from)) >
-        new Date(moment(req.params.date_to))
+        new Date(moment(req.params.date_to.endOf('day')))
       )
         throw new Error();
       else {
@@ -58,7 +58,7 @@ router.get(
         stationRef: req.params.stationID,
         $and: [
           { timestamp: { $gte: moment(req.params.date_from) } },
-          { timestamp: { $lte: moment(req.params.date_to) } },
+          { timestamp: { $lte: moment(req.params.date_to.endOf('day')) } },
         ],
       });
 
@@ -122,7 +122,7 @@ router.get(
       //check if query params are invalid
       if (
         new Date(moment(req.params.date_from)) >
-        new Date(moment(req.params.date_to))
+        new Date(moment(req.params.date_to.endOf('day')))
       )
         throw new Error();
       else {
@@ -170,7 +170,7 @@ router.get(
         vehicleRef: { $in: arrayOfVehicleIds },
         $and: [
           { timestamp: { $gte: moment(req.params.date_from) } },
-          { timestamp: { $lte: moment(req.params.date_to) } },
+          { timestamp: { $lte: moment(req.params.date_to.endOf('day')) } },
         ],
       });
 
@@ -224,7 +224,7 @@ router.get(
       //check if query params are invalid
       if (
         new Date(moment(req.params.date_from)) >
-        new Date(moment(req.params.date_to))
+        new Date(moment(req.params.date_to.endOf('day')))
       )
         throw new Error();
       else {
@@ -272,7 +272,7 @@ router.get(
         vehicleRef: { $in: arrayOfVehicleIds },
         $and: [
           { timestamp: { $gte: moment(req.params.date_from) } },
-          { timestamp: { $lte: moment(req.params.date_to) } },
+          { timestamp: { $lte: moment(req.params.date_to.endOf('day')) } },
         ],
       });
 
@@ -314,7 +314,7 @@ router.get("/ChargesBy/:op_ID/:date_from/:date_to", async (req, res) => {
     //check if query params are invalid
     if (
       new Date(moment(req.params.date_from)) >
-      new Date(moment(req.params.date_to))
+      new Date(moment(req.params.date_to.endOf('day')))
     )
       throw new Error();
     else {
@@ -348,7 +348,7 @@ router.get("/ChargesBy/:op_ID/:date_from/:date_to", async (req, res) => {
       home: { $eq: "false" },
       $and: [
         { timestamp: { $gte: moment(req.params.date_from) } },
-        { timestamp: { $lte: moment(req.params.date_to) } },
+        { timestamp: { $lte: moment(req.params.date_to.endOf('day')) } },
       ],
     });
     let PPOList = [];
@@ -400,5 +400,13 @@ router.get("/ChargesBy/:op_ID/:date_from/:date_to", async (req, res) => {
     res.sendStatus(400);
   }
 });
+
+
+// Returns the balances between an operator op_ID and every other operator
+router.get(
+  "/OperatorBalances/:op_ID/:date_from/:date_to",
+  async (req, res) => {
+      
+  });
 
 module.exports = router;

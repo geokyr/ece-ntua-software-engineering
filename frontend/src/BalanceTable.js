@@ -13,7 +13,7 @@ import Box from "@mui/material/Box";
 function CircularIndeterminate() {
     return (
         <Box sx={{ display: "flex" }}>
-            <CircularProgress />
+            <CircularProgress sx={{color:'black'}} />
         </Box>
     );
 }
@@ -52,7 +52,7 @@ const rows = [
 ];
 
 export default function BalanceTable(props) {
-    return !props.data ? null : (
+    return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
                 <TableHead>
@@ -62,7 +62,7 @@ export default function BalanceTable(props) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    { !props.data ?
+                    { props.data == null ?
                     <div
                         style={{
                             width: 700,
