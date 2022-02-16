@@ -17,7 +17,12 @@
 
 .titleContainer {
   flex:1;
+<<<<<<< HEAD
   /* width: 70%; */
+=======
+  height: 100px;
+  width: 70%;
+>>>>>>> 20c3f8b0968e9d507fd7abb762cfa91deda87547
   background-color: #000;
   display: flex;
   flex-direction: row;

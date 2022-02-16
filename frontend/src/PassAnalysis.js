@@ -87,7 +87,11 @@ function PassAnalysis() {
             <div
                 style={{
                     flex: 5,
+<<<<<<< HEAD
                     padding: 40,
+=======
+                    padding: 20,
+>>>>>>> 20c3f8b0968e9d507fd7abb762cfa91deda87547
                     marginTop: 20,
                     display: "flex",
                     backgroundColor: "white",
@@ -97,7 +101,11 @@ function PassAnalysis() {
                     justifyContent: "center",
                 }}>
                 <p style={{color:'black', fontFamily:'Roboto', fontWeight:700, }}>2021</p>
+<<<<<<< HEAD
                 <BarChart width={900} height={300} data={data}>
+=======
+                <BarChart width={900} height={250} data={data}>
+>>>>>>> 20c3f8b0968e9d507fd7abb762cfa91deda87547
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="date" />
                     <YAxis  />
