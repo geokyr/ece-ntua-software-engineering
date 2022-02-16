@@ -7,10 +7,10 @@ args = my_parser.parse_args()
 
 try:   
     r = requests.post('http://127.0.0.1:9103/admin/resetvehicles')
-    try:
-        print(r.json())
-    except Exception as e:
-        print(e)
-    r.raise_for_status()
+    if(r.status_code == 200):
+        print('200: Success')
+    elif(r.status_code == 500):
+        print('500: Internal server error')
+    print(r.json())
 except Exception as e:
     print(e)
