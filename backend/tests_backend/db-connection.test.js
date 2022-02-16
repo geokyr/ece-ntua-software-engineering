@@ -3,7 +3,7 @@ const Pass = require("../src/models/Pass");
 const Station = require("../src/models/Station");
 const Vehicle = require("../src/models/Vehicle");
 const moment = require("moment");
-const app = require("../src/app")
+const app = require("../src/app");
 
 const {
   testPass,
@@ -14,7 +14,6 @@ const {
   testVehicle,
   testStation,
 } = require("../../test-backend/testingObjects");
-
 
 describe("db-connection", () => {
   beforeAll(async () => {
@@ -28,6 +27,7 @@ describe("db-connection", () => {
     await db.close();
     await connection.close;
   });
+
 
   // -------- Testing for "passes" collection --------------------------------------------------------
 
@@ -98,7 +98,6 @@ describe("db-connection", () => {
   // #Passes_test_9 Filter passes whose stationRef is included in an array of stationIDs,
   // their home == false and have occured between to dates
   test("Filter passes by stationRef and home and timestamps ", async () => {
-
     const response = await Pass.find({
       stationRef: { $in: arrayOfStationIds },
       home: { $eq: "false" },

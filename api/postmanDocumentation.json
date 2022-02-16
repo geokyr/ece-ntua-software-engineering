@@ -12,27 +12,18 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3001/PassesPerStation?stationID=KO01&date_from=20190101&date_to=20190110&format=csv",
+					"raw": "localhost:9103/PassesPerStation/KO01/20190101/20190110?format=csv",
 					"host": [
 						"localhost"
 					],
-					"port": "3001",
+					"port": "9103",
 					"path": [
-						"PassesPerStation"
+						"PassesPerStation",
+						"KO01",
+						"20190101",
+						"20190110"
 					],
 					"query": [
-						{
-							"key": "stationID",
-							"value": "KO01"
-						},
-						{
-							"key": "date_from",
-							"value": "20190101"
-						},
-						{
-							"key": "date_to",
-							"value": "20190110"
-						},
 						{
 							"key": "format",
 							"value": "csv"
@@ -49,31 +40,19 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3001/PassesAnalysis?op1_ID=aodos&op2_ID=kentriki_odos&date_from=20211005&date_to=20211110&format=csv",
+					"raw": "localhost:9103/PassesAnalysis/aodos/kentriki_odos/20211005/20211110?format=csv",
 					"host": [
 						"localhost"
 					],
-					"port": "3001",
+					"port": "9103",
 					"path": [
-						"PassesAnalysis"
+						"PassesAnalysis",
+						"aodos",
+						"kentriki_odos",
+						"20211005",
+						"20211110"
 					],
 					"query": [
-						{
-							"key": "op1_ID",
-							"value": "aodos"
-						},
-						{
-							"key": "op2_ID",
-							"value": "kentriki_odos"
-						},
-						{
-							"key": "date_from",
-							"value": "20211005"
-						},
-						{
-							"key": "date_to",
-							"value": "20211110"
-						},
 						{
 							"key": "format",
 							"value": "csv"
@@ -90,34 +69,22 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3001/PassesCost?op1_ID=aodos&op2_ID=gefyra&date_from=20211005&date_to=20211110&format=csv",
+					"raw": "localhost:9103/PassesCost/aodos/gefyra/20211005/20211110?format=json",
 					"host": [
 						"localhost"
 					],
-					"port": "3001",
+					"port": "9103",
 					"path": [
-						"PassesCost"
+						"PassesCost",
+						"aodos",
+						"gefyra",
+						"20211005",
+						"20211110"
 					],
 					"query": [
 						{
-							"key": "op1_ID",
-							"value": "aodos"
-						},
-						{
-							"key": "op2_ID",
-							"value": "gefyra"
-						},
-						{
-							"key": "date_from",
-							"value": "20211005"
-						},
-						{
-							"key": "date_to",
-							"value": "20211110"
-						},
-						{
 							"key": "format",
-							"value": "csv"
+							"value": "json"
 						}
 					]
 				},
@@ -131,30 +98,21 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3001/ChargesBy?op_ID=aodos&date_from=20211005&date_to=20211110&format=csv",
+					"raw": "localhost:9103/ChargesBy/aodos/20211005/20211110?format=json",
 					"host": [
 						"localhost"
 					],
-					"port": "3001",
+					"port": "9103",
 					"path": [
-						"ChargesBy"
+						"ChargesBy",
+						"aodos",
+						"20211005",
+						"20211110"
 					],
 					"query": [
 						{
-							"key": "op_ID",
-							"value": "aodos"
-						},
-						{
-							"key": "date_from",
-							"value": "20211005"
-						},
-						{
-							"key": "date_to",
-							"value": "20211110"
-						},
-						{
 							"key": "format",
-							"value": "csv"
+							"value": "json"
 						}
 					]
 				},
@@ -168,11 +126,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3001/admin/healthcheck",
+					"raw": "localhost:9103/admin/healthcheck",
 					"host": [
 						"localhost"
 					],
-					"port": "3001",
+					"port": "9103",
 					"path": [
 						"admin",
 						"healthcheck"
@@ -188,11 +146,11 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "localhost:3001/admin/resetpasses",
+					"raw": "localhost:9103/admin/resetpasses",
 					"host": [
 						"localhost"
 					],
-					"port": "3001",
+					"port": "9103",
 					"path": [
 						"admin",
 						"resetpasses"
@@ -208,11 +166,11 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "localhost:3001/admin/resetstations",
+					"raw": "localhost:9103/admin/resetstations",
 					"host": [
 						"localhost"
 					],
-					"port": "3001",
+					"port": "9103",
 					"path": [
 						"admin",
 						"resetstations"
@@ -228,11 +186,11 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "localhost:3001/admin/resetvehicles",
+					"raw": "localhost:9103/admin/resetvehicles",
 					"host": [
 						"localhost"
 					],
-					"port": "3001",
+					"port": "9103",
 					"path": [
 						"admin",
 						"resetvehicles"
