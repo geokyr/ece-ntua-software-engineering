@@ -23,22 +23,30 @@ const finalObjectFormat = (finalObject, formatType) => {
   }
 };
 
+const inputDateValidity = (formatDateFrom, formatDateTo) => {
+  if (
+    moment(formatDateFrom).isAfter(formatDateTo)
+  )
+    return false;
+  else return true;
+};
+
+const inputFormatValidity = (format) => {
+  if (format && format != "csv" && format != "json") return false;
+  else return true;
+};
+
 // Returns a list with passes that happened at a given station during a certain time period
 router.get(
   "/PassesPerStation/:stationID/:date_from/:date_to",
   async (req, res) => {
     try {
       //check if query params are invalid
-      if (moment(req.params.date_from).isAfter(req.params.date_to))
+      if (
+        !inputDateValidity(req.params.date_from, req.params.date_to) ||
+        !inputFormatValidity(req.query.format)
+      )
         throw new Error("400");
-      else {
-        if (
-          req.query.format &&
-          req.query.format != "csv" &&
-          req.query.format != "json"
-        )
-          throw new Error("400");
-      }
 
       const stationIdExists = await Station.findOne({
         stationID: req.params.stationID,
@@ -116,16 +124,11 @@ router.get(
   async (req, res) => {
     try {
       //check if query params are invalid
-      if (moment(req.params.date_from).isAfter(req.params.date_to))
+      if (
+        !inputDateValidity(req.params.date_from, req.params.date_to) ||
+        !inputFormatValidity(req.query.format)
+      )
         throw new Error("400");
-      else {
-        if (
-          req.query.format &&
-          req.query.format != "csv" &&
-          req.query.format != "json"
-        )
-          throw new Error("400");
-      }
 
       const op1_IDExists = await Station.findOne({
         stationProvider: req.params.op1_ID,
@@ -216,16 +219,11 @@ router.get(
   async (req, res) => {
     try {
       //check if query params are invalid
-      if (moment(req.params.date_from).isAfter(req.params.date_to))
+      if (
+        !inputDateValidity(req.params.date_from, req.params.date_to) ||
+        !inputFormatValidity(req.query.format)
+      )
         throw new Error("400");
-      else {
-        if (
-          req.query.format &&
-          req.query.format != "csv" &&
-          req.query.format != "json"
-        )
-          throw new Error("400");
-      }
 
       const op1_IDExists = await Station.findOne({
         stationProvider: req.params.op1_ID,
@@ -304,16 +302,11 @@ router.get(
 router.get("/ChargesBy/:op_ID/:date_from/:date_to", async (req, res) => {
   try {
     //check if query params are invalid
-    if (moment(req.params.date_from).isAfter(req.params.date_to))
+    if (
+      !inputDateValidity(req.params.date_from, req.params.date_to) ||
+      !inputFormatValidity(req.query.format)
+    )
       throw new Error("400");
-    else {
-      if (
-        req.query.format &&
-        req.query.format != "csv" &&
-        req.query.format != "json"
-      )
-        throw new Error("400");
-    }
 
     const op_IDExists = await Station.findOne({
       stationProvider: req.params.op_ID,
