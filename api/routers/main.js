@@ -29,24 +29,21 @@ router.get(
   async (req, res) => {
     try {
       //check if query params are invalid
-      if (
-        new Date(moment(req.params.date_from)) >
-        new Date(moment(req.params.date_to))
-      )
-        throw new Error();
+      if (moment(req.params.date_from).isAfter(req.params.date_to))
+        throw new Error("400");
       else {
         if (
           req.query.format &&
           req.query.format != "csv" &&
           req.query.format != "json"
         )
-          throw new Error();
+          throw new Error("400");
       }
 
       const stationIdExists = await Station.findOne({
         stationID: req.params.stationID,
       });
-      if (!stationIdExists) throw new Error();
+      if (!stationIdExists) throw new Error("400");
       /////////////////////////
 
       //query params exists so we get into main body of endpoint
@@ -103,13 +100,12 @@ router.get(
         passesList.sort(function (a, b) {
           return new Date(a.PassTimeStamp) - new Date(b.PassTimeStamp);
         });
-
         finalObject.PassesList = passesList;
-      }
-
-      res.status(200).send(finalObjectFormat(finalObject, req.query.format));
+        res.status(200).send(finalObjectFormat(finalObject, req.query.format));
+      } else res.sendStatus(402);
     } catch (err) {
-      res.sendStatus(400);
+      if (err == "Error: 400") res.sendStatus(400);
+      else res.sendStatus(500);
     }
   }
 );
@@ -120,18 +116,15 @@ router.get(
   async (req, res) => {
     try {
       //check if query params are invalid
-      if (
-        new Date(moment(req.params.date_from)) >
-        new Date(moment(req.params.date_to))
-      )
-        throw new Error();
+      if (moment(req.params.date_from).isAfter(req.params.date_to))
+        throw new Error("400");
       else {
         if (
           req.query.format &&
           req.query.format != "csv" &&
           req.query.format != "json"
         )
-          throw new Error();
+          throw new Error("400");
       }
 
       const op1_IDExists = await Station.findOne({
@@ -140,7 +133,7 @@ router.get(
       const op2_IDExists = await Station.findOne({
         stationProvider: req.params.op2_ID,
       });
-      if (!op1_IDExists || !op2_IDExists) throw new Error();
+      if (!op1_IDExists || !op2_IDExists) throw new Error("400");
       /////////////////////////
 
       //get all stationIds from stationProvider
@@ -208,10 +201,11 @@ router.get(
         });
 
         finalObject.PassesList = passesList;
-      }
-      res.status(200).send(finalObjectFormat(finalObject, req.query.format));
+        res.status(200).send(finalObjectFormat(finalObject, req.query.format));
+      } else res.sendStatus(402);
     } catch (err) {
-      res.sendStatus(400);
+      if (err == "Error: 400") res.sendStatus(400);
+      else res.sendStatus(500);
     }
   }
 );
@@ -222,18 +216,15 @@ router.get(
   async (req, res) => {
     try {
       //check if query params are invalid
-      if (
-        new Date(moment(req.params.date_from)) >
-        new Date(moment(req.params.date_to))
-      )
-        throw new Error();
+      if (moment(req.params.date_from).isAfter(req.params.date_to))
+        throw new Error("400");
       else {
         if (
           req.query.format &&
           req.query.format != "csv" &&
           req.query.format != "json"
         )
-          throw new Error();
+          throw new Error("400");
       }
 
       const op1_IDExists = await Station.findOne({
@@ -242,7 +233,7 @@ router.get(
       const op2_IDExists = await Station.findOne({
         stationProvider: req.params.op2_ID,
       });
-      if (!op1_IDExists || !op2_IDExists) throw new Error();
+      if (!op1_IDExists || !op2_IDExists) throw new Error("400");
       /////////////////////////
 
       //get all stationIds from stationProvider
@@ -302,7 +293,8 @@ router.get(
 
       res.status(200).send(finalObjectFormat(finalObject, req.query.format));
     } catch (err) {
-      res.sendStatus(400);
+      if (err == "Error: 400") res.sendStatus(400);
+      else res.sendStatus(500);
     }
   }
 );
@@ -312,24 +304,21 @@ router.get(
 router.get("/ChargesBy/:op_ID/:date_from/:date_to", async (req, res) => {
   try {
     //check if query params are invalid
-    if (
-      new Date(moment(req.params.date_from)) >
-      new Date(moment(req.params.date_to))
-    )
-      throw new Error();
+    if (moment(req.params.date_from).isAfter(req.params.date_to))
+      throw new Error("400");
     else {
       if (
         req.query.format &&
         req.query.format != "csv" &&
         req.query.format != "json"
       )
-        throw new Error();
+        throw new Error("400");
     }
 
     const op_IDExists = await Station.findOne({
       stationProvider: req.params.op_ID,
     });
-    if (!op_IDExists) throw new Error();
+    if (!op_IDExists) throw new Error("400");
     /////////////////////////
 
     //query params exists so we get into main body of endpoint
@@ -388,16 +377,15 @@ router.get("/ChargesBy/:op_ID/:date_from/:date_to", async (req, res) => {
           }
         })
       );
-    }
-
-    PPOList.forEach(function (item, index) {
-      this[index].PassesCost = Math.round(item.PassesCost * 10) / 10;
-    }, PPOList);
-
-    finalObject.PPOList = PPOList;
-    res.status(200).send(finalObjectFormat(finalObject, req.query.format));
+      PPOList.forEach(function (item, index) {
+        this[index].PassesCost = Math.round(item.PassesCost * 10) / 10;
+      }, PPOList);
+      finalObject.PPOList = PPOList;
+      res.status(200).send(finalObjectFormat(finalObject, req.query.format));
+    } else res.sendStatus(402);
   } catch (err) {
-    res.sendStatus(400);
+    if (err == "Error: 400") res.sendStatus(400);
+    else res.sendStatus(500);
   }
 });
 
