@@ -45,29 +45,6 @@ const companies = [
     },
 ];
 
-const dummyTable = [
-    {
-        name: "Εθνική οδός",
-        balance: 100,
-    },
-    {
-        name: "Αττική οδός",
-        balance: 200,
-    },
-    {
-        name: "Ολυμπία οδός",
-        balance: -10,
-    },
-    {
-        name: "Κορινθία οδός",
-        balance: 23,
-    },
-    {
-        name: "Ιερά οδός",
-        balance: 10,
-    },
-];
-
 function CompanyBalance(props) {
     const [selectedComp, setSelectedComp] = useState(companies[0]);
     const [dateFrom, setDateFrom] = useState("20190101");
@@ -80,18 +57,24 @@ function CompanyBalance(props) {
     }
 
     const formatTableData = (obj) => {
-      let arr = obj.PPOList.map((operator) => {
-          return { "name": operator.VisitingOperator, "balance": operator.PassesCost }
+      let arr = [];
+        obj.Balances.forEach((operator) => {
+          if(selectedComp.abbreviation != operator.abbr) arr.push({ "name": abbrToName(operator.abbr), "balance": operator.balance }) 
       })
+      console.log(arr)
       return arr;
     }
 
+    const abbrToName = (abbr) => {
+        return companies.find(element => element.abbreviation == abbr).name
+    }
 
     // Get balances of the selected company with every other company operator
     const fetchBalances = () => {
+        setTableData(null);
         let balances = [];
 
-        fetch(`http://localhost:9103/ChargesBy/${selectedComp.title}/${formatDate(dateFrom)}/${formatDate(dateTo)}?format=json`)
+        fetch(`http://localhost:9103/OperatorBalances/${selectedComp.title}/${formatDate(dateFrom)}/${formatDate(dateTo)}?format=json`)
           .then(res => res.json())
           .then(response =>  setTableData(formatTableData(response)))
           .catch(err => { console.error(err)})
