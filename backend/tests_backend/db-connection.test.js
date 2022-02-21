@@ -15,7 +15,7 @@ const {
   testStation,
 } = require("../../test-backend/testingObjects");
 
-describe("db-connection", () => {
+describe("Backend Testing", () => {
   beforeAll(async () => {
     // A connection to a test database is created.
     connection = mongoose.createConnection(process.env.MONGODB_URL);

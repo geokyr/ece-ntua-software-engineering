@@ -2,7 +2,7 @@ const app = require("../src/app");
 const request = require("supertest");
 const mongoose = require("mongoose");
 
-describe("apitesting", () => {
+describe("API Testing", () => {
     beforeAll(async () => {
         // A connection to a test database is created.
         connection = mongoose.createConnection(process.env.MONGODB_URL);
@@ -18,42 +18,42 @@ describe("apitesting", () => {
     });
 
     // -------- Testing for "healthcheck endpoint" --------------------------------------------------------
-    describe("healthcheck should be connected", () => {
-        it("should return that db is connected", async () => {
+    describe("Testing 'admin/healthcheck'", () => {
+        it("should succeed if the database is connected", async () => {
             const response = await request(app).get("/admin/healthcheck");
             expect(200);
         });
     });
 
     // -------- Testing for "resetpasses endpoint" --------------------------------------------------------
-    describe("resetpasses", () => {
-      //we use setTimeout because the default value is (5000ms), so we modify it beacuse its a long running test
-      jest.setTimeout(100000);
-      it("should return that passes added in db", async () => {
-        const response = await request(app).post("/admin/resetpasses");
-        expect(200);
-      });
+    describe("Testing 'admin/resetpasses'", () => {
+        //we use setTimeout because the default value is (5000ms), so we modify it beacuse its a long running test
+        jest.setTimeout(100000);
+        it("should succeed if Passes collection is reset", async () => {
+            const response = await request(app).post("/admin/resetpasses");
+            expect(200);
+        });
     });
 
     // -------- Testing for "resetvehicles endpoint" --------------------------------------------------------
-    describe("resetvehicles", () => {
-      it("should return that vehciles added in db", async () => {
-        const response = await request(app).post("/admin/resetvehicles");
-        expect(200);
-      });
+    describe("Testing 'admin/resetvehicles'", () => {
+        it("should succeed if Vehicles collection is reset", async () => {
+            const response = await request(app).post("/admin/resetvehicles");
+            expect(200);
+        });
     });
 
     // -------- Testing for "resetstations endpoint" --------------------------------------------------------
-    describe("resetstations", () => {
-      it("should return that stations added in db", async () => {
-        const response = await request(app).post("/admin/resetstations");
-        expect(200);
-      });
+    describe("Testing 'admin/resetstations'", () => {
+        it("should succeed if Stations collection is reset", async () => {
+            const response = await request(app).post("/admin/resetstations");
+            expect(200);
+        });
     });
 
     // -------- Testing for "PassesPerStation endpoint" --------------------------------------------------------
-    describe("PassesPerStation for a specific station", () => {
-        it("should get a bunch of passes for that specific station", async () => {
+    describe("Testing 'PassesPerStation'", () => {
+        it("should return a specific number of of passes for a specific station", async () => {
             const response = await request(app)
                 .get("/PassesPerStation/KO01/20190101/20190110")
                 .query({
@@ -63,8 +63,8 @@ describe("apitesting", () => {
         });
     });
 
-    describe("PassesPerStation check ascending order in the list", () => {
-        it("should return that list is sorted", async () => {
+    describe("Testing 'PassesPerStation'", () => {
+        it("should succeed  if the returned array is sorted", async () => {
             const response = await request(app)
                 .get("/PassesPerStation/KO01/20190101/20290312")
                 .query({
@@ -82,8 +82,8 @@ describe("apitesting", () => {
         });
     });
 
-    describe("PassesPerStation with wrong dates", () => {
-        it("should get 0 passes because date_to is less than date_from", async () => {
+    describe("Testing 'PassesPerStation'", () => {
+        it("should fail because date_to is earlier than date_from", async () => {
             const response = await request(app)
                 .get("/PassesPerStation/KO01/20200110/20190101")
                 .query({
@@ -93,10 +93,10 @@ describe("apitesting", () => {
         });
     });
 
-    describe("should not get all passes because of wrong stationID", () => {
-        it("should not get all passes", async () => {
+    describe("Testing 'PassesPerStation'", () => {
+        it("should fail because of invalid operator abbreviation", async () => {
             const response = await request(app)
-                .get("/PassesPerStation/ggdsgkvghjk/20190110/20190101")
+                .get("/PassesPerStation/ggdsgkvghjk/20190110/20190201")
                 .query({
                     format: "json",
                 });
@@ -104,10 +104,10 @@ describe("apitesting", () => {
         });
     });
 
-    describe("should not get all passes because of wrong format and stationID", () => {
-        it("should not get all passes", async () => {
+    describe("Testing 'PassesPerStation'", () => {
+        it("should fail because of invalid format", async () => {
             const response = await request(app)
-                .get("/PassesPerStation/KO0ccghc1/20190110/20190101")
+                .get("/PassesPerStation/KO01/20200110/20190401")
                 .query({
                     format: "cghfcg",
                 });
@@ -115,20 +115,9 @@ describe("apitesting", () => {
         });
     });
 
-    describe("should not get passes because everything is wrong", () => {
-        it("should get 0 passes", async () => {
-            const response = await request(app)
-                .get("/PassesPerStation/vvvvv/vgvkj/hgfgcghfcdgdfg")
-                .query({
-                    format: "hfcfcffg",
-                });
-            expect(response.status).toBe(400);
-        });
-    });
-
     // -------- Testing for "PassesAnalysis endpoint" --------------------------------------------------------
-    describe("successful PassesAnalysis for two operators ", () => {
-        it("should get 10 passes for the two operators", async () => {
+    describe("Testing 'PassesAnalysis'", () => {
+        it("should return 10 passes", async () => {
             const response = await request(app)
                 .get("/PassesAnalysis/aodos/kentriki_odos/20211005/20211110")
                 .query({
@@ -138,8 +127,8 @@ describe("apitesting", () => {
         });
     });
 
-    describe("PassesAnalysis check ascending order in the list", () => {
-        it("should return that list is sorted", async () => {
+    describe("Testing 'PassesAnalysis'", () => {
+        it("should succeed if the returned array is sorted", async () => {
             const response = await request(app)
                 .get("/PassesAnalysis/aodos/kentriki_odos/20211005/20211110")
                 .query({
@@ -157,8 +146,8 @@ describe("apitesting", () => {
         });
     });
 
-    describe("fail PassesAnalysis for two operators ", () => {
-        it("should not return anything due to date_from is bigger than date_to", async () => {
+    describe("Testing 'PassesAnalysis'", () => {
+        it("should fail because date_to is earlier than date_from", async () => {
             const response = await request(app)
                 .get("/PassesAnalysis/aodos/kentriki_odos/20261005/20211005")
                 .query({
@@ -168,8 +157,8 @@ describe("apitesting", () => {
         });
     });
 
-    describe("fail PassesAnalysis for two operators ", () => {
-        it("should not return anything due to wrong inputs", async () => {
+    describe("Testing 'PassesAnalysis'", () => {
+        it("should fail because of wrong input", async () => {
             const response = await request(app)
                 .get(
                     "/PassesAnalysis/sadf/kentrifdsfski_odos/fdsfd/2021fdsfds1005"
@@ -182,19 +171,19 @@ describe("apitesting", () => {
     });
 
     // -------- Testing for "PassesCost endpoint" --------------------------------------------------------
-    describe("Successful PassesCost between two operators ", () => {
-        it("should return a numberOfPasses greater than 0", async () => {
+    describe("Testing 'PassesCost'", () => {
+        it("should return PassesCost value of 28", async () => {
             const response = await request(app)
-                .get("/PassesCost/aodos/gefyra/20211005/20211110")
+                .get("/PassesCost/aodos/gefyra/20211001/20211031")
                 .query({
                     format: "json",
                 });
-            expect(response.body.NumberOfPasses).toBeGreaterThan(0);
+            expect(response.body.PassesCost).toEqual(28);
         });
     });
 
-    describe("fail PassesCost between two operators ", () => {
-        it("should not return anything because of wrong inputs", async () => {
+    describe("Testing 'PassesCost'", () => {
+        it("should fail because of wrong input", async () => {
             const response = await request(app)
                 .get("/PassesCost/fd/fsdfds/fdsfdsfd/fdsfdsfdsfds")
                 .query({
@@ -204,31 +193,31 @@ describe("apitesting", () => {
         });
     });
 
-    describe("fail PassesCost between two operators ", () => {
-        it("should not return anything because of wrong dates(date_from is bigger than date_to)", async () => {
+    describe("Testing 'PassesCost'", () => {
+        it("should fail because date_to is earlier than date_from", async () => {
             const response = await request(app)
                 .get("/PassesCost/aodos/gefyra/20291005/20211110")
                 .query({
-                    format: "dsfsfasdsfs",
+                    format: "json",
                 });
             expect(response.status).toBe(400);
         });
     });
 
     // -------- Testing for "ChargesBy endpoint" --------------------------------------------------------
-    describe("success ChargesBy for a specific operator ", () => {
-        it("should return PPOList greater than 0", async () => {
+    describe("Testing 'ChargesBy'", () => {
+        it("should return more than one charges", async () => {
             const response = await request(app)
                 .get("/ChargesBy/aodos/20211005/20211110")
                 .query({
                     format: "json",
                 });
-            expect(response.body.PPOList.length).toBeGreaterThan(0);
+            expect(response.body.PPOList.length).toBeGreaterThan(1);
         });
     });
 
-    describe("fail ChargesBy for a specific operator ", () => {
-        it("should return empty PPOList because of wrong dates", async () => {
+    describe("Testing 'ChargesBy'", () => {
+        it("should fail because date_to is earlier than date_from", async () => {
             const response = await request(app)
                 .get("/ChargesBy/aodos/20291005/20211110")
                 .query({
@@ -238,8 +227,8 @@ describe("apitesting", () => {
         });
     });
 
-    describe("fail ChargesBy for a specific operator ", () => {
-        it("should return empty PPOList because of invalid operator", async () => {
+    describe("Testing 'ChargesBy'", () => {
+        it("should fail because of invalid operator", async () => {
             const response = await request(app)
                 .get("/ChargesBy/aodos12345/20211005/20211110")
                 .query({
@@ -249,8 +238,8 @@ describe("apitesting", () => {
         });
     });
 
-    describe("fail ChargesBy for a specific operator ", () => {
-        it("should return nothing because of wrong inputs", async () => {
+    describe("Testing 'ChargesBy'", () => {
+        it("should fail because of wrong input", async () => {
             const response = await request(app)
                 .get("/ChargesBy/aod/fsdfsdf/20211110")
                 .query({
@@ -260,8 +249,8 @@ describe("apitesting", () => {
         });
     });
 
-    describe("fail ChargesBy for a specific operator ", () => {
-        it("should return a list with specific length", async () => {
+    describe("Testing 'ChargesBy'", () => {
+        it("should return a list with length 6", async () => {
             const response = await request(app)
                 .get("/ChargesBy/aodos/20211005/20211110")
                 .query({
@@ -272,8 +261,8 @@ describe("apitesting", () => {
     });
 
     // -------- Testing for "OperatorBalances endpoint" --------------------------------------------------------
-    describe("Testing OperatorBalances", () => {
-        it("should fail because of wrong dates", async () => {
+    describe("Testing 'OperatorBalances'", () => {
+        it("should fail because date_to is earlier than date_from", async () => {
             const response = await request(app)
                 .get("/OperatorBalances/aodos/20191005/20171110")
                 .query({
@@ -283,7 +272,7 @@ describe("apitesting", () => {
         });
     });
 
-    describe("Testing OperatorBalances", () => {
+    describe("Testing 'OperatorBalances'", () => {
         it("should fail because of invalid operator", async () => {
             const response = await request(app)
                 .get("/OperatorBalances/aodos12345/20211005/20211110")
@@ -294,8 +283,8 @@ describe("apitesting", () => {
         });
     });
 
-    describe("Testing OperatorBalances", () => {
-        it("should fail because of wrong inputs", async () => {
+    describe("Testing 'OperatorBalances'", () => {
+        it("should fail because of wrong input", async () => {
             const response = await request(app)
                 .get("/OperatorBalances/aod/fsdfsdf/20211110")
                 .query({
@@ -305,8 +294,8 @@ describe("apitesting", () => {
         });
     });
 
-    describe("Testing OperatorBalances", () => {
-        it("should return a Balances array specific values", async () => {
+    describe("Testing 'OperatorBalances'", () => {
+        it("should return a Balances array with specific values", async () => {
             let correctResult = [
                 { abbr: "EG", balance: 15.2 },
                 { abbr: "AO", balance: 0 },
@@ -327,8 +316,8 @@ describe("apitesting", () => {
     });
 
     // -------- Testing for "YearlyPassesCount endpoint" --------------------------------------------------------
-    describe("Testing YearlyPassesCount", () => {
-        it("should fail because of wrong dates", async () => {
+    describe("Testing 'YearlyPassesCount'", () => {
+        it("should fail because date_to is earlier than date_from", async () => {
             const response = await request(app)
                 .get("/YearlyPassesCount/aodos/egnatia/20191005/20171110")
                 .query({
@@ -349,8 +338,8 @@ describe("apitesting", () => {
         });
     });
 
-    describe("Testing YearlyPassesCount", () => {
-        it("should fail because of wrong inputs", async () => {
+    describe("Testing 'YearlyPassesCount'", () => {
+        it("should fail because of wrong input", async () => {
             const response = await request(app)
                 .get("/YearlyPassesCount/aod/sad/fsdfsdf/20211110")
                 .query({
@@ -360,8 +349,8 @@ describe("apitesting", () => {
         });
     });
 
-    describe("Testing YearlyPassesCount", () => {
-        it("should return a PassesPerMonth array specific values", async () => {
+    describe("Testing 'YearlyPassesCount'", () => {
+        it("should return a PassesPerMonth array with specific values", async () => {
             let correctResult = [5, 12, 11, 5, 9, 5, 7, 11, 10, 9, 5, 0];
 
             const response = await request(app)
@@ -374,8 +363,8 @@ describe("apitesting", () => {
     });
 
     // -------- Testing for "passesupd endpoint" --------------------------------------------------------
-    describe("Testing passesupd", () => {
-        it("should fail because wrong file type (.csv)", async () => {
+    describe("Testing 'admin/passesupd'", () => {
+        it("should fail because of wrong file type (.csv)", async () => {
             const response = await request(app).post("/admin/passesupd").query({
                 filepath: "../passesTesting.pdf",
             });
@@ -388,7 +377,7 @@ describe("apitesting", () => {
             expect(400);
         });
 
-        it("passes should be added in db added in db", async () => {
+        it("should succeed if passes should be added Passes collection", async () => {
             const response = await request(app).post("/admin/passesupd").query({
                 filepath: "../passesTesting.csv",
             });
