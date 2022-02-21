@@ -86,7 +86,7 @@ export default function BalanceTable(props) {
                                     color: row.balance >= 0 ? "green" : "red",
                                 }}
                                 align="right">
-                                {row.balance}$
+                                {row.balance}&euro;
                             </StyledTableCell>
                         </StyledTableRow>
                     ))

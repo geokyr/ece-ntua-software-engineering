@@ -6,44 +6,8 @@ import BalanceTable from "./BalanceTable";
 import DatePicker from "./DatePicker";
 import * as React from "react";
 import moment from 'moment'
+import companies from './datasets/companies.json'
 
-const companies = [
-    {
-        name: "Εγνατία οδός",
-        title: "egnatia",
-        abbreviation: "EG",
-    },
-    {
-        name: "Αττική οδός",
-        title: "aodos",
-        abbreviation: "AO",
-    },
-    {
-        name: "Νέα οδός",
-        title: "nea_odos",
-        abbreviation: "NE",
-    },
-    {
-        name: "Ολυμπία οδός",
-        title: "olympia_odos",
-        abbreviation: "OO",
-    },
-    {
-        name: "Κεντρική οδός",
-        title: "kentriki_odos",
-        abbreviation: "KO",
-    },
-    {
-        name: "Γέφυρα",
-        title: "gefyra",
-        abbreviation: "GF",
-    },
-    {
-        name: "Μορέας",
-        title: "moreas",
-        abbreviation: "MR",
-    },
-];
 
 function CompanyBalance(props) {
     const [selectedComp, setSelectedComp] = useState(companies[0]);
@@ -61,7 +25,6 @@ function CompanyBalance(props) {
         obj.Balances.forEach((operator) => {
           if(selectedComp.abbreviation != operator.abbr) arr.push({ "name": abbrToName(operator.abbr), "balance": operator.balance }) 
       })
-      console.log(arr)
       return arr;
     }
 
@@ -77,7 +40,7 @@ function CompanyBalance(props) {
         fetch(`http://localhost:9103/OperatorBalances/${selectedComp.title}/${formatDate(dateFrom)}/${formatDate(dateTo)}?format=json`)
           .then(res => res.json())
           .then(response =>  setTableData(formatTableData(response)))
-          .catch(err => { console.error(err)})
+          .catch(err => {  alert("Something went wrong.");})
     };
 
     useEffect(fetchBalances, [selectedComp, dateFrom, dateTo]);

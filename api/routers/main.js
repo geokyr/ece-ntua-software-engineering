@@ -16,18 +16,21 @@ const finalObjectFormat = (finalObject, formatType) => {
         try {
             return parse(finalObject, opts);
         } catch (err) {
-            console.error(err);
+            // console.error(err);
         }
     } else {
         return finalObject;
     }
 };
 
+// Returns true if every date string has correct format "YYYYMMDD" and formatDateTo is after formatDateFrom
 const inputDateValidity = (formatDateFrom, formatDateTo) => {
-    if (moment(formatDateFrom).isAfter(formatDateTo)) return false;
+
+    if ( !moment(formatDateFrom, 'YYYYMMDD', true).isValid() || !moment(formatDateTo, 'YYYYMMDD', true).isValid() || moment(formatDateFrom, 'YYYYMMDD', true).isAfter(formatDateTo) ) return false;
     else return true;
 };
 
+// Returns true if format has one of the accepted values { "csv", "json", null }
 const inputFormatValidity = (format) => {
     if (format && format != "csv" && format != "json") return false;
     else return true;
@@ -73,6 +76,7 @@ router.get(
                 stationID: req.params.stationID,
             });
 
+            // Final object creation
             finalObject.Station = req.params.stationID;
             finalObject.StationOperator = stationDetails.stationProvider;
             finalObject.RequestTimestamp = moment(Date.now()).format(
@@ -87,6 +91,7 @@ router.get(
             finalObject.NumberOfPasses = passes.length;
 
             if (passes.length > 0) {
+                // Create array of passes
                 await Promise.all(
                     passes.map(async (pass, index) => {
                         let listObject = {};
@@ -106,6 +111,8 @@ router.get(
                         passesList.push(listObject);
                     })
                 );
+
+                // Sort array of passes in chronological order
                 passesList.sort(function (a, b) {
                     return (
                         new Date(a.PassTimeStamp) - new Date(b.PassTimeStamp)
@@ -182,6 +189,7 @@ router.get(
             let finalObject = {};
             let passesList = [];
 
+            // Final object creation
             finalObject.op1_ID = req.params.op1_ID;
             finalObject.op2_ID = req.params.op2_ID;
             finalObject.RequestTimestamp = moment(Date.now()).format(
@@ -195,6 +203,7 @@ router.get(
             );
             finalObject.NumberOfPasses = finalPasses.length;
 
+            // Create array of passes
             if (finalPasses.length > 0) {
                 finalPasses.map((pass, index) => {
                     let listObject = {};
@@ -208,6 +217,8 @@ router.get(
                     listObject.Charge = pass.charge;
                     passesList.push(listObject);
                 });
+
+                // Sort array of passes in chronological order
                 passesList.sort(function (a, b) {
                     return (
                         new Date(a.PassTimeStamp) - new Date(b.PassTimeStamp)
@@ -285,6 +296,7 @@ router.get(
             let finalObject = {};
             let passesCost = 0;
 
+            // Final object creation
             finalObject.op1_ID = req.params.op1_ID;
             finalObject.op2_ID = req.params.op2_ID;
             finalObject.RequestTimestamp = moment(Date.now()).format(
@@ -299,6 +311,7 @@ router.get(
             finalObject.NumberOfPasses = finalPasses.length;
 
             if (finalPasses.length > 0) {
+                // Calculate total balance
                 finalPasses.map((pass) => {
                     passesCost += pass.charge;
                 });
@@ -358,6 +371,8 @@ router.get("/ChargesBy/:op_ID/:date_from/:date_to", async (req, res) => {
         });
         let PPOList = [];
         let finalObject = {};
+
+        // Final object creation
         finalObject.op_ID = req.params.op_ID;
         finalObject.RequestTimestamp = moment(Date.now()).format(
             "YYYY-MM-DD HH:MM:SS"
@@ -370,6 +385,7 @@ router.get("/ChargesBy/:op_ID/:date_from/:date_to", async (req, res) => {
         );
 
         if (op_IDPasses.length > 0) {
+            // Create array with passes count and balance per operator
             await Promise.all(
                 op_IDPasses.map(async (pass, index) => {
                     let listObject = {};
@@ -393,9 +409,12 @@ router.get("/ChargesBy/:op_ID/:date_from/:date_to", async (req, res) => {
                     }
                 })
             );
+
+            // Round balances to 1 dec
             PPOList.forEach(function (item, index) {
                 this[index].PassesCost = Math.round(item.PassesCost * 10) / 10;
             }, PPOList);
+
             finalObject.PPOList = PPOList;
             res.status(200).send(
                 finalObjectFormat(finalObject, req.query.format)
@@ -420,7 +439,7 @@ router.get("/OperatorBalances/:op_ID/:date_from/:date_to", async (req, res) => {
         const op_IDExists = await Station.findOne({
             stationProvider: req.params.op_ID,
         });
-        if (!op_IDExists ) throw new Error("400");
+        if (!op_IDExists) throw new Error("400");
         /////////////////////////
 
         //get all stationIds from op_ID
@@ -505,20 +524,113 @@ router.get("/OperatorBalances/:op_ID/:date_from/:date_to", async (req, res) => {
             balances[pass.stationRef.slice(0, 2)] -= pass.charge;
         });
 
-        // Round balances
-        let balanceArray = Object.keys(balances).map(function(key, index) {
-          return { abbr:key, balance: (Math.round(balances[key] * 10) / 10)};
+        // Create array of objects including company abbreviation and rounded balances
+        let balanceArray = Object.keys(balances).map(function (key, index) {
+            return { abbr: key, balance: Math.round(balances[key] * 10) / 10 };
         });
-        
 
         finalObject.Balances = balanceArray;
         res.status(200).send(finalObjectFormat(finalObject, req.query.format));
 
     } catch (err) {
-      console.error(err)
+        // console.error(err);
         if (err == "Error: 400") res.sendStatus(400);
         else res.sendStatus(500);
     }
 });
+
+// returns the passes that occured at stations of op1_ID from vehicles with tag of op2_ID
+router.get(
+    "/YearlyPassesCount/:op1_ID/:op2_ID/:date_from/:date_to",
+    async (req, res) => {
+        try {
+            //check if query params are invalid
+            if (
+                !inputDateValidity(req.params.date_from, req.params.date_to) ||
+                !inputFormatValidity(req.query.format)
+            )
+                throw new Error("400");
+
+            const op1_IDExists = await Station.findOne({
+                stationProvider: req.params.op1_ID,
+            });
+            const op2_IDExists = await Station.findOne({
+                stationProvider: req.params.op2_ID,
+            });
+            if (!op1_IDExists || !op2_IDExists) throw new Error("400");
+            /////////////////////////
+
+            //get all stationIds from stationProvider
+            const stationIds = await Station.find(
+                { stationProvider: req.params.op1_ID },
+                ["stationID", "-_id"]
+            );
+            //convert array of objects to array
+            let arrayOfStationIds = [];
+            stationIds.map((stationId) => {
+                arrayOfStationIds.push(stationId.stationID);
+            });
+
+            //get all vehicleIds from the op2_ID
+            const vehicleIds = await Vehicle.find(
+                { tagProvider: req.params.op2_ID },
+                ["vehicleID", "-_id"]
+            );
+            //convert array of objects to array
+            let arrayOfVehicleIds = [];
+            vehicleIds.map((vehicleId) => {
+                arrayOfVehicleIds.push(vehicleId.vehicleID);
+            });
+
+            //get all passes in given dates
+            const finalPasses = await Pass.find({
+                stationRef: { $in: arrayOfStationIds },
+                vehicleRef: { $in: arrayOfVehicleIds },
+                $and: [
+                    { timestamp: { $gte: moment(req.params.date_from) } },
+                    {
+                        timestamp: {
+                            $lte: moment(req.params.date_to).endOf("day"),
+                        },
+                    },
+                ],
+            });
+
+            let finalObject = {};
+            let passesPerMonth = [0,0,0,0,0,0,0,0,0,0,0,0];
+            
+            // Final object creation
+            finalObject.op1_ID = req.params.op1_ID;
+            finalObject.op2_ID = req.params.op2_ID;
+            finalObject.RequestTimestamp = moment(Date.now()).format(
+                "YYYY-MM-DD HH:MM:SS"
+            );
+            finalObject.PeriodFrom = moment(req.params.date_from).format(
+                "YYYY-MM-DD 00:00:00"
+            );
+            finalObject.PeriodTo = moment(req.params.date_to).format(
+                "YYYY-MM-DD 23:59:59"
+            );
+
+
+            if (finalPasses.length > 0) {
+                // Calculate passes per month
+                finalPasses.map((pass, index) => {
+                    passesPerMonth[pass.timestamp.getMonth()]++;
+                });
+
+                finalObject.PassesPerMonth = passesPerMonth;
+                res.status(200).send(
+                    finalObjectFormat(finalObject, req.query.format)
+                );
+            }
+        } catch (err) {
+            // console.error(err);
+            if (err == "Error: 400") res.sendStatus(400);
+            else res.sendStatus(500);
+        }
+    }
+);
+
 
 module.exports = router;
