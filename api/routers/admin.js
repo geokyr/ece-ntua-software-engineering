@@ -91,4 +91,38 @@ router.post("/admin/resetvehicles", async (req, res) => {
   }
 });
 
+
+// Add passes from external csv file
+router.post("/admin/passesupd", async (req, res) => {
+  try {
+
+    // Create array of all the passes that will be in the collection from csv file.
+    const csvFilePath = req.query.filepath;
+
+    if(!csvFilePath || csvFilePath.slice(-4) !== ".csv") throw new Error("400");
+    
+    const jsonArray = await csv({
+      colParser: {
+        timestamp: function (item) {
+          return moment(item, "DD-MM-YYYY HH:mm")
+        },
+        charge: function (item) {
+          return parseFloat(item);
+        },
+      },
+    }).fromFile(csvFilePath);
+
+    // Insert new passes from array
+    await Pass.insertMany(jsonArray);
+
+    res.status(200).send({ status: "OK" });
+  } catch (err) {
+    if (err == "Error: 400") res.status(400).send({ status: "failed" });
+    else res.status(500).send({ status: "failed" });
+  }
+});
+
+
 module.exports = router;
+
+

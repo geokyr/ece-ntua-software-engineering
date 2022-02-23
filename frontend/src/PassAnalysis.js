@@ -1,5 +1,6 @@
 import "./styles/passAnalysis.css";
 import CompanySelector from "./CompanySelector";
+import { useState, useEffect } from "react";
 import {
     BarChart,
     Bar,
@@ -9,47 +10,47 @@ import {
     Tooltip,
     Legend,
     LabelList,
-    Label
+    Label,
 } from "recharts";
+import companies from './datasets/companies.json'
 
-const data = [
-    { date: "Jan", uv: 1400 },
-    { date: "Feb", uv: 200 },
-    { date: "Mar", uv: 30 },
-    { date: "Apr", uv: 400 },
-    { date: "May", uv: 200 },
-    { date: "Jun", uv: 400 },
-    { date: "Jul", uv: 200 },
-    { date: "Aug", uv: 30 },
-    { date: "Sep", uv: 400 },
-    { date: "Oct", uv: 200 },
-    { date: "Nov", uv: 300 },
-    { date: "Dec", uv: 250 },
+const months = ["Jan","Feb", "Mar", "Apr", "May","Jun", "Jul", "Aug", "Sep", "Oct", "Nov","Dec" ];
+// { date: "Dec", uv: 250 },
 
-];
-
-const dummy = [
-    {
-        name: "Εθνική οδός",
-    },
-    {
-        name: "Αττική οδός",
-    },
-    {
-        name: "Εγνατία οδός",
-    },
-    {
-        name: "Ολυμπία οδός",
-    },
-    {
-        name: "Ιερά οδός",
-    },
-    {
-        name: "Κορινθία οδός",
-    },
-];
 
 function PassAnalysis() {
+    const [selectedStationComp, setSelectedStationComp] = useState(
+        companies[0]
+    );
+    const [selectedTagComp, setSelectedTagComp] = useState(companies[1]);
+    const [chartData, setChartData] = useState(null);
+
+    const formatChartData = (obj) => {
+        obj.forEach((pass, index) => {
+            obj[index] = { date: months[index], uv: obj[index] };
+        })
+        // obj.Balances.forEach((operator) => {
+        //     if(selectedComp.abbreviation != operator.abbr) arr.push({ "name": abbrToName(operator.abbr), "balance": operator.balance })
+        // })
+        return obj;
+    };
+
+    // get passes per month for last year between selectedStationComp and selectedTagComp
+    const fetchMonthlyPasses = () => {
+        setChartData(null);
+
+        fetch(
+            `http://localhost:9103/YearlyPassesCount/${selectedStationComp.title}/${selectedTagComp.title}/20210101/20220101?format=json`
+        )
+            .then((res) => res.json())
+            .then((response) => setChartData(formatChartData(response.PassesPerMonth)))
+            .catch((err) => {
+                alert("Something went wrong.");
+            });
+    };
+
+    useEffect(fetchMonthlyPasses, [selectedStationComp, selectedTagComp]);
+
     return (
         <div className="companyBalanceContainer">
             <p style={{ top: 0, textAlign: "center", color: "black" }}>
@@ -69,18 +70,18 @@ function PassAnalysis() {
                 <div className="titleBox">
                     <p className="titleText">Station operator:</p>
                     <CompanySelector
-                        companies={dummy}
-                        setSelectedComp={() => console.log("Kap")}
-                        selectedComp={"Kap"}
+                        companies={companies}
+                        setSelectedComp={setSelectedStationComp}
+                        selectedComp={selectedStationComp}
                     />
                 </div>
-                <div style={{width:30 }}></div>
+                <div style={{ width: 30 }}></div>
                 <div className="titleBox">
                     <p className="titleText">Tag operator:</p>
                     <CompanySelector
-                        companies={dummy}
-                        setSelectedComp={() => console.log("Kap")}
-                        selectedComp={"Kap"}
+                        companies={companies}
+                        setSelectedComp={setSelectedTagComp}
+                        selectedComp={selectedTagComp}
                     />
                 </div>
             </div>
@@ -91,19 +92,24 @@ function PassAnalysis() {
                     marginTop: 20,
                     display: "flex",
                     backgroundColor: "white",
-                    flexDirection:'column',
+                    flexDirection: "column",
                     borderRadius: "1vw",
                     alignItems: "center",
                     justifyContent: "center",
                 }}>
-                <p style={{color:'black', fontFamily:'Roboto', fontWeight:700, }}>2021</p>
-                <BarChart width={900} height={250} data={data}>
+                <p
+                    style={{
+                        color: "black",
+                        fontFamily: "Roboto",
+                        fontWeight: 700,
+                    }}>
+                    2021
+                </p>
+                <BarChart width={900} height={250} margin={{ top: 35, right: 5, bottom: 5, left: 5 }} data={chartData}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="date" />
-                    <YAxis  />
-                    {/* <Tooltip /> */}
-                    {/* <Legend /> */}
-                    <Bar dataKey="uv" fill="black" >
+                    <YAxis />
+                    <Bar dataKey="uv" fill="black">
                         <LabelList dataKey="uv" position="top" />
                     </Bar>
                 </BarChart>
