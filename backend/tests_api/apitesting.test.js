@@ -70,18 +70,46 @@ describe("API Testing", () => {
         });
     });
 
-    // -------- Testing for "passesupd endpoint" --------------------------------------------------------
-    describe("Testing the 'admin/passesupd' endpoint", () => {
+    // -------- Testing for "resetpasses endpoint" --------------------------------------------------------
+    describe("Testing 'admin/resetpasses'", () => {
         //we use setTimeout because the default value is (5000ms), so we modify it beacuse its a long running test
-        jest.setTimeout(100000);
-        it("should succeed if Passes collection is reset", async () => {
-            const response = await request(app).post("/interoperability/api/admin/passesupd").query({
-                filepath:"./passes.csv"
-            });
+        it("should succeed if Passes collection is emptied", async () => {
+            const response = await request(app).post(
+                "/interoperability/api/admin/resetpasses"
+            );
             expect(200);
         });
     });
-   
+
+    // -------- Testing for "passesupd endpoint" --------------------------------------------------------
+    describe("Testing 'admin/passesupd'", () => {
+        jest.setTimeout(100000);
+        it("should fail because of wrong file type (.csv)", async () => {
+            const response = await request(app)
+                .post("/interoperability/api/admin/passesupd")
+                .query({
+                    filepath: "../passesTesting.pdf",
+                });
+            expect(400);
+        });
+        it("should fail because of missing file", async () => {
+            const response = await request(app)
+                .post("/interoperability/api/admin/passesupd")
+                .query({
+                    filepath: "../NonExistentFile.csv",
+                });
+            expect(400);
+        });
+
+        it("should succeed if passes should be added Passes collection", async () => {
+            const response = await request(app)
+                .post("/interoperability/api/admin/passesupd")
+                .query({
+                    filepath: "./passes.csv",
+                });
+            expect(200);
+        });
+    });
 
     // -------- Testing for "resetvehicles endpoint" --------------------------------------------------------
     describe("Testing 'admin/resetvehicles'", () => {
@@ -453,5 +481,4 @@ describe("API Testing", () => {
             expect(response.body.PassesPerMonth).toEqual(correctResult);
         });
     });
-
 });
