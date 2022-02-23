@@ -25,15 +25,18 @@ describe("API Testing", () => {
         });
     });
 
-    // -------- Testing for "resetpasses endpoint" --------------------------------------------------------
-    describe("Testing 'admin/resetpasses'", () => {
+    // -------- Testing for "passesupd endpoint" --------------------------------------------------------
+    describe("Testing 'admin/passesupd'", () => {
         //we use setTimeout because the default value is (5000ms), so we modify it beacuse its a long running test
         jest.setTimeout(100000);
         it("should succeed if Passes collection is reset", async () => {
-            const response = await request(app).post("/admin/resetpasses");
+            const response = await request(app).post("/admin/passesupd").query({
+                filepath:"/Users/nickvlachakis/Desktop/TL21-23/backend/passes.csv"
+            });
             expect(200);
         });
     });
+   
 
     // -------- Testing for "resetvehicles endpoint" --------------------------------------------------------
     describe("Testing 'admin/resetvehicles'", () => {

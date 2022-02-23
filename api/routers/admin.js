@@ -27,25 +27,9 @@ router.get("/admin/healthcheck",  async (req, res) => {
 // Resets the Pass collection with the given passes data
 router.post("/admin/resetpasses", async (req, res) => {
   try {
-
-    // Create array of all the passes that will be in the collection from csv file.
-    const csvFilePath = "passes.csv";
-    const jsonArray = await csv({
-      colParser: {
-        timestamp: function (item) {
-          return moment(item, "DD-MM-YYYY HH:mm")
-        },
-        charge: function (item) {
-          return parseFloat(item);
-        },
-      },
-    }).fromFile(csvFilePath);
-
     // Empty collection
     await Pass.deleteMany({});
-
-    // Insert new passes from array
-    await Pass.insertMany(jsonArray);
+    
     res.status(200).send({ status: "OK" });
   } catch (e) {
     console.log("error is", e);
