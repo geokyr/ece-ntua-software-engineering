@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 
 describe("API Testing", () => {
     beforeAll(async () => {
+        jest.setTimeout(5 * 1000);
         // A connection to a test database is created.
         connection = mongoose.createConnection(process.env.MONGODB_URL);
         db = mongoose.connection;
@@ -25,15 +26,57 @@ describe("API Testing", () => {
             );
             expect(200);
         });
+       
+    });
+
+     // -------- Testing for "resetpasses endpoint" --------------------------------------------------------
+     describe("Testing 'admin/resetpasses'", () => {
+        it("should succeed if Passes collection is reset", async () => {
+            const response = await request(app).post(
+                "/interoperability/api/admin/resetpasses"
+            );
+            expect(200);
+        });
+        
+    });
+
+     // -------- Testing for "passesupd endpoint" --------------------------------------------------------
+     describe("Testing 'admin/passesupd'", () => { 
+        it("should fail because of wrong file type (.csv)", async () => {
+            const response = await request(app)
+                .post("/interoperability/api/admin/passesupd")
+                .query({
+                    filepath: "./passesTesting.pdf",
+                });
+            expect(400);
+        });
+       
+        it("should fail because of missing file", async () => {
+            const response = await request(app)
+                .post("/interoperability/api/admin/passesupd")
+                .query({
+                    filepath: "./NonExistentFile.csv",
+                });
+            expect(400);
+        });
+        
+        it("should succeed if passes should be added Passes collection", async () => {
+            const response = await request(app)
+                .post("/interoperability/api/admin/passesupd")
+                .query({
+                    filepath: "./passesTesting.csv",
+                });
+            expect(200);
+        });
     });
 
     // -------- Testing for "passesupd endpoint" --------------------------------------------------------
-    describe("Testing 'admin/passesupd'", () => {
+    describe("Testing the 'admin/passesupd' endpoint", () => {
         //we use setTimeout because the default value is (5000ms), so we modify it beacuse its a long running test
         jest.setTimeout(100000);
         it("should succeed if Passes collection is reset", async () => {
-            const response = await request(app).post("/admin/passesupd").query({
-                filepath:"/Users/nickvlachakis/Desktop/TL21-23/backend/passes.csv"
+            const response = await request(app).post("/interoperability/api/admin/passesupd").query({
+                filepath:"./passes.csv"
             });
             expect(200);
         });
@@ -411,32 +454,4 @@ describe("API Testing", () => {
         });
     });
 
-    // -------- Testing for "passesupd endpoint" --------------------------------------------------------
-    describe("Testing 'admin/passesupd'", () => {
-        it("should fail because of wrong file type (.csv)", async () => {
-            const response = await request(app)
-                .post("/interoperability/api/admin/passesupd")
-                .query({
-                    filepath: "../passesTesting.pdf",
-                });
-            expect(400);
-        });
-        it("should fail because of missing file", async () => {
-            const response = await request(app)
-                .post("/interoperability/api/admin/passesupd")
-                .query({
-                    filepath: "../NonExistentFile.csv",
-                });
-            expect(400);
-        });
-
-        it("should succeed if passes should be added Passes collection", async () => {
-            const response = await request(app)
-                .post("/interoperability/api/admin/passesupd")
-                .query({
-                    filepath: "../passesTesting.csv",
-                });
-            expect(200);
-        });
-    });
 });
