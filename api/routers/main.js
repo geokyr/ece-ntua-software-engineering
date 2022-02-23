@@ -24,10 +24,7 @@ const finalObjectFormat = (finalObject, formatType) => {
 };
 
 const inputDateValidity = (formatDateFrom, formatDateTo) => {
-  if (
-    moment(formatDateFrom).isAfter(formatDateTo)
-  )
-    return false;
+  if (moment(formatDateFrom).isAfter(formatDateTo)) return false;
   else return true;
 };
 
