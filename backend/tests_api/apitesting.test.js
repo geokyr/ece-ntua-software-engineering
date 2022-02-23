@@ -20,7 +20,9 @@ describe("API Testing", () => {
     // -------- Testing for "healthcheck endpoint" --------------------------------------------------------
     describe("Testing 'admin/healthcheck'", () => {
         it("should succeed if the database is connected", async () => {
-            const response = await request(app).get("/admin/healthcheck");
+            const response = await request(app).get(
+                "/interoperability/api/admin/healthcheck"
+            );
             expect(200);
         });
     });
@@ -41,7 +43,9 @@ describe("API Testing", () => {
     // -------- Testing for "resetvehicles endpoint" --------------------------------------------------------
     describe("Testing 'admin/resetvehicles'", () => {
         it("should succeed if Vehicles collection is reset", async () => {
-            const response = await request(app).post("/admin/resetvehicles");
+            const response = await request(app).post(
+                "/interoperability/api/admin/resetvehicles"
+            );
             expect(200);
         });
     });
@@ -49,7 +53,9 @@ describe("API Testing", () => {
     // -------- Testing for "resetstations endpoint" --------------------------------------------------------
     describe("Testing 'admin/resetstations'", () => {
         it("should succeed if Stations collection is reset", async () => {
-            const response = await request(app).post("/admin/resetstations");
+            const response = await request(app).post(
+                "/interoperability/api/admin/resetstations"
+            );
             expect(200);
         });
     });
@@ -58,7 +64,9 @@ describe("API Testing", () => {
     describe("Testing 'PassesPerStation'", () => {
         it("should return a specific number of of passes for a specific station", async () => {
             const response = await request(app)
-                .get("/PassesPerStation/KO01/20190101/20190110")
+                .get(
+                    "/interoperability/api/PassesPerStation/KO01/20190101/20190110"
+                )
                 .query({
                     format: "json",
                 });
@@ -69,7 +77,9 @@ describe("API Testing", () => {
     describe("Testing 'PassesPerStation'", () => {
         it("should succeed  if the returned array is sorted", async () => {
             const response = await request(app)
-                .get("/PassesPerStation/KO01/20190101/20290312")
+                .get(
+                    "/interoperability/api/PassesPerStation/KO01/20190101/20290312"
+                )
                 .query({
                     format: "json",
                 });
@@ -88,7 +98,9 @@ describe("API Testing", () => {
     describe("Testing 'PassesPerStation'", () => {
         it("should fail because date_to is earlier than date_from", async () => {
             const response = await request(app)
-                .get("/PassesPerStation/KO01/20200110/20190101")
+                .get(
+                    "/interoperability/api/PassesPerStation/KO01/20200110/20190101"
+                )
                 .query({
                     format: "json",
                 });
@@ -99,7 +111,9 @@ describe("API Testing", () => {
     describe("Testing 'PassesPerStation'", () => {
         it("should fail because of invalid operator abbreviation", async () => {
             const response = await request(app)
-                .get("/PassesPerStation/ggdsgkvghjk/20190110/20190201")
+                .get(
+                    "/interoperability/api/PassesPerStation/ggdsgkvghjk/20190110/20190201"
+                )
                 .query({
                     format: "json",
                 });
@@ -110,7 +124,9 @@ describe("API Testing", () => {
     describe("Testing 'PassesPerStation'", () => {
         it("should fail because of invalid format", async () => {
             const response = await request(app)
-                .get("/PassesPerStation/KO01/20200110/20190401")
+                .get(
+                    "/interoperability/api/PassesPerStation/KO01/20200110/20190401"
+                )
                 .query({
                     format: "cghfcg",
                 });
@@ -122,7 +138,9 @@ describe("API Testing", () => {
     describe("Testing 'PassesAnalysis'", () => {
         it("should return 10 passes", async () => {
             const response = await request(app)
-                .get("/PassesAnalysis/aodos/kentriki_odos/20211005/20211110")
+                .get(
+                    "/interoperability/api/PassesAnalysis/aodos/kentriki_odos/20211005/20211110"
+                )
                 .query({
                     format: "json",
                 });
@@ -133,7 +151,9 @@ describe("API Testing", () => {
     describe("Testing 'PassesAnalysis'", () => {
         it("should succeed if the returned array is sorted", async () => {
             const response = await request(app)
-                .get("/PassesAnalysis/aodos/kentriki_odos/20211005/20211110")
+                .get(
+                    "/interoperability/api/PassesAnalysis/aodos/kentriki_odos/20211005/20211110"
+                )
                 .query({
                     format: "json",
                 });
@@ -152,7 +172,9 @@ describe("API Testing", () => {
     describe("Testing 'PassesAnalysis'", () => {
         it("should fail because date_to is earlier than date_from", async () => {
             const response = await request(app)
-                .get("/PassesAnalysis/aodos/kentriki_odos/20261005/20211005")
+                .get(
+                    "/interoperability/api/PassesAnalysis/aodos/kentriki_odos/20261005/20211005"
+                )
                 .query({
                     format: "csv",
                 });
@@ -164,7 +186,7 @@ describe("API Testing", () => {
         it("should fail because of wrong input", async () => {
             const response = await request(app)
                 .get(
-                    "/PassesAnalysis/sadf/kentrifdsfski_odos/fdsfd/2021fdsfds1005"
+                    "/interoperability/api/PassesAnalysis/sadf/kentrifdsfski_odos/fdsfd/2021fdsfds1005"
                 )
                 .query({
                     format: "fdsfdfs",
@@ -177,7 +199,9 @@ describe("API Testing", () => {
     describe("Testing 'PassesCost'", () => {
         it("should return PassesCost value of 28", async () => {
             const response = await request(app)
-                .get("/PassesCost/aodos/gefyra/20211001/20211031")
+                .get(
+                    "/interoperability/api/PassesCost/aodos/gefyra/20211001/20211031"
+                )
                 .query({
                     format: "json",
                 });
@@ -188,7 +212,9 @@ describe("API Testing", () => {
     describe("Testing 'PassesCost'", () => {
         it("should fail because of wrong input", async () => {
             const response = await request(app)
-                .get("/PassesCost/fd/fsdfds/fdsfdsfd/fdsfdsfdsfds")
+                .get(
+                    "/interoperability/api/PassesCost/fd/fsdfds/fdsfdsfd/fdsfdsfdsfds"
+                )
                 .query({
                     format: "dsfsfasdsfs",
                 });
@@ -199,7 +225,9 @@ describe("API Testing", () => {
     describe("Testing 'PassesCost'", () => {
         it("should fail because date_to is earlier than date_from", async () => {
             const response = await request(app)
-                .get("/PassesCost/aodos/gefyra/20291005/20211110")
+                .get(
+                    "/interoperability/api/PassesCost/aodos/gefyra/20291005/20211110"
+                )
                 .query({
                     format: "json",
                 });
@@ -211,7 +239,7 @@ describe("API Testing", () => {
     describe("Testing 'ChargesBy'", () => {
         it("should return more than one charges", async () => {
             const response = await request(app)
-                .get("/ChargesBy/aodos/20211005/20211110")
+                .get("/interoperability/api/ChargesBy/aodos/20211005/20211110")
                 .query({
                     format: "json",
                 });
@@ -222,7 +250,7 @@ describe("API Testing", () => {
     describe("Testing 'ChargesBy'", () => {
         it("should fail because date_to is earlier than date_from", async () => {
             const response = await request(app)
-                .get("/ChargesBy/aodos/20291005/20211110")
+                .get("/interoperability/api/ChargesBy/aodos/20291005/20211110")
                 .query({
                     format: "json",
                 });
@@ -233,7 +261,9 @@ describe("API Testing", () => {
     describe("Testing 'ChargesBy'", () => {
         it("should fail because of invalid operator", async () => {
             const response = await request(app)
-                .get("/ChargesBy/aodos12345/20211005/20211110")
+                .get(
+                    "/interoperability/api/ChargesBy/aodos12345/20211005/20211110"
+                )
                 .query({
                     format: "json",
                 });
@@ -244,7 +274,7 @@ describe("API Testing", () => {
     describe("Testing 'ChargesBy'", () => {
         it("should fail because of wrong input", async () => {
             const response = await request(app)
-                .get("/ChargesBy/aod/fsdfsdf/20211110")
+                .get("/interoperability/api/ChargesBy/aod/fsdfsdf/20211110")
                 .query({
                     format: "fdaslkfasd",
                 });
@@ -255,7 +285,7 @@ describe("API Testing", () => {
     describe("Testing 'ChargesBy'", () => {
         it("should return a list with length 6", async () => {
             const response = await request(app)
-                .get("/ChargesBy/aodos/20211005/20211110")
+                .get("/interoperability/api/ChargesBy/aodos/20211005/20211110")
                 .query({
                     format: "json",
                 });
@@ -267,7 +297,9 @@ describe("API Testing", () => {
     describe("Testing 'OperatorBalances'", () => {
         it("should fail because date_to is earlier than date_from", async () => {
             const response = await request(app)
-                .get("/OperatorBalances/aodos/20191005/20171110")
+                .get(
+                    "/interoperability/api/OperatorBalances/aodos/20191005/20171110"
+                )
                 .query({
                     format: "json",
                 });
@@ -278,7 +310,9 @@ describe("API Testing", () => {
     describe("Testing 'OperatorBalances'", () => {
         it("should fail because of invalid operator", async () => {
             const response = await request(app)
-                .get("/OperatorBalances/aodos12345/20211005/20211110")
+                .get(
+                    "/interoperability/api/OperatorBalances/aodos12345/20211005/20211110"
+                )
                 .query({
                     format: "json",
                 });
@@ -289,7 +323,9 @@ describe("API Testing", () => {
     describe("Testing 'OperatorBalances'", () => {
         it("should fail because of wrong input", async () => {
             const response = await request(app)
-                .get("/OperatorBalances/aod/fsdfsdf/20211110")
+                .get(
+                    "/interoperability/api/OperatorBalances/aod/fsdfsdf/20211110"
+                )
                 .query({
                     format: "fdaslkfasd",
                 });
@@ -310,7 +346,9 @@ describe("API Testing", () => {
             ];
 
             const response = await request(app)
-                .get("/OperatorBalances/aodos/20211001/20211031")
+                .get(
+                    "/interoperability/api/OperatorBalances/aodos/20211001/20211031"
+                )
                 .query({
                     format: "json",
                 });
@@ -322,7 +360,9 @@ describe("API Testing", () => {
     describe("Testing 'YearlyPassesCount'", () => {
         it("should fail because date_to is earlier than date_from", async () => {
             const response = await request(app)
-                .get("/YearlyPassesCount/aodos/egnatia/20191005/20171110")
+                .get(
+                    "/interoperability/api/YearlyPassesCount/aodos/egnatia/20191005/20171110"
+                )
                 .query({
                     format: "json",
                 });
@@ -333,7 +373,9 @@ describe("API Testing", () => {
     describe("Testing YearlyPassesCount", () => {
         it("should fail because of invalid operator", async () => {
             const response = await request(app)
-                .get("/YearlyPassesCount/aodos12345/egnatia/20211005/20211110")
+                .get(
+                    "/interoperability/api/YearlyPassesCount/aodos12345/egnatia/20211005/20211110"
+                )
                 .query({
                     format: "json",
                 });
@@ -344,7 +386,9 @@ describe("API Testing", () => {
     describe("Testing 'YearlyPassesCount'", () => {
         it("should fail because of wrong input", async () => {
             const response = await request(app)
-                .get("/YearlyPassesCount/aod/sad/fsdfsdf/20211110")
+                .get(
+                    "/interoperability/api/YearlyPassesCount/aod/sad/fsdfsdf/20211110"
+                )
                 .query({
                     format: "fdaslkfasd",
                 });
@@ -357,7 +401,9 @@ describe("API Testing", () => {
             let correctResult = [5, 12, 11, 5, 9, 5, 7, 11, 10, 9, 5, 0];
 
             const response = await request(app)
-                .get("/YearlyPassesCount/aodos/egnatia/20210101/20211231")
+                .get(
+                    "/interoperability/api/YearlyPassesCount/aodos/egnatia/20210101/20211231"
+                )
                 .query({
                     format: "json",
                 });
@@ -368,22 +414,28 @@ describe("API Testing", () => {
     // -------- Testing for "passesupd endpoint" --------------------------------------------------------
     describe("Testing 'admin/passesupd'", () => {
         it("should fail because of wrong file type (.csv)", async () => {
-            const response = await request(app).post("/admin/passesupd").query({
-                filepath: "../passesTesting.pdf",
-            });
+            const response = await request(app)
+                .post("/interoperability/api/admin/passesupd")
+                .query({
+                    filepath: "../passesTesting.pdf",
+                });
             expect(400);
         });
         it("should fail because of missing file", async () => {
-            const response = await request(app).post("/admin/passesupd").query({
-                filepath: "../NonExistentFile.csv",
-            });
+            const response = await request(app)
+                .post("/interoperability/api/admin/passesupd")
+                .query({
+                    filepath: "../NonExistentFile.csv",
+                });
             expect(400);
         });
 
         it("should succeed if passes should be added Passes collection", async () => {
-            const response = await request(app).post("/admin/passesupd").query({
-                filepath: "../passesTesting.csv",
-            });
+            const response = await request(app)
+                .post("/interoperability/api/admin/passesupd")
+                .query({
+                    filepath: "../passesTesting.csv",
+                });
             expect(200);
         });
     });

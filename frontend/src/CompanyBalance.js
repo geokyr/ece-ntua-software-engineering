@@ -37,7 +37,7 @@ function CompanyBalance(props) {
         setTableData(null);
         let balances = [];
 
-        fetch(`http://localhost:9103/OperatorBalances/${selectedComp.title}/${formatDate(dateFrom)}/${formatDate(dateTo)}?format=json`)
+        fetch(`http://localhost:9103/interoperability/api/OperatorBalances/${selectedComp.title}/${formatDate(dateFrom)}/${formatDate(dateTo)}?format=json`)
           .then(res => res.json())
           .then(response =>  setTableData(formatTableData(response)))
           .catch(err => {  alert("Something went wrong.");})

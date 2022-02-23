@@ -12,7 +12,8 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(main);
-app.use(admin);
+// Add service prefix to every endpoint
+app.use('/interoperability/api', main);
+app.use('/interoperability/api', admin);
 
 module.exports = app;

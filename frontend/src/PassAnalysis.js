@@ -29,9 +29,6 @@ function PassAnalysis() {
         obj.forEach((pass, index) => {
             obj[index] = { date: months[index], uv: obj[index] };
         })
-        // obj.Balances.forEach((operator) => {
-        //     if(selectedComp.abbreviation != operator.abbr) arr.push({ "name": abbrToName(operator.abbr), "balance": operator.balance })
-        // })
         return obj;
     };
 
@@ -40,7 +37,7 @@ function PassAnalysis() {
         setChartData(null);
 
         fetch(
-            `http://localhost:9103/YearlyPassesCount/${selectedStationComp.title}/${selectedTagComp.title}/20210101/20220101?format=json`
+            `http://localhost:9103/interoperability/api/YearlyPassesCount/${selectedStationComp.title}/${selectedTagComp.title}/20210101/20220101?format=json`
         )
             .then((res) => res.json())
             .then((response) => setChartData(formatChartData(response.PassesPerMonth)))
