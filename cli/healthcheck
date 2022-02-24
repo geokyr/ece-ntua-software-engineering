@@ -5,6 +5,7 @@ import requests
 my_parser = argparse.ArgumentParser(description='checks if there is connection with database')
 args = my_parser.parse_args()
 
+<<<<<<< HEAD
 try:
     r = requests.get('http://127.0.0.1:9103/interoperability/api/admin/healthcheck')
     if(r.status_code == 200):
@@ -12,5 +13,14 @@ try:
     elif(r.status_code == 500):
         print('500: Internal server error')
     print(r.json())
+=======
+try:   
+    r = requests.get('http://127.0.0.1:9103/interoperability/api/admin/healthcheck')
+    try:
+        print(r.json())
+    except Exception as e:
+        print(e)
+    r.raise_for_status()
+>>>>>>> origin/master
 except Exception as e:
     print(e)
