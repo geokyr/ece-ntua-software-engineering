@@ -22,10 +22,10 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: "#000",
         color: theme.palette.common.white,
-        fontSize: 22,
+        fontSize: 16,
     },
     [`&.${tableCellClasses.body}`]: {
-        fontSize: 22,
+        fontSize: 16,
     },
 }));
 
