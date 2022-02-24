@@ -17,15 +17,19 @@ my_parser.add_argument('--format', metavar='{json|csv}', type=str, required=True
 args = my_parser.parse_args()
 
 try:    
-    url = 'http://127.0.0.1:9103/PassesCost/' + args.op1 + '/' + args.op2 + '/' + args.datefrom + '/' + args.dateto + '?format=' + args.format
+    url = 'http://127.0.0.1:9103/interoperability/api/PassesCost/' + args.op1 + '/' + args.op2 + '/' + args.datefrom + '/' + args.dateto + '?format=' + args.format
     r = requests.get(url)
-    r.raise_for_status()
-    try:    
+    if(r.status_code == 200):
+        print('200: Success')
         if args.format == 'json':
             print(r.json())
         elif args.format == 'csv': 
             print(r.text)
-    except Exception as e:
-        print(e)
+    elif(r.status_code == 400):
+        print('400: Bad request')
+    elif(r.status_code == 402):
+        print('402: No data')
+    elif(r.status_code == 500):
+        print('500: Internal server error')
 except Exception as e:
     print(e)
