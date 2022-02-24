@@ -15,7 +15,7 @@ my_parser.add_argument('--format', metavar='{json|csv}', type=str, required=True
 args = my_parser.parse_args()
 
 try:    
-    url = 'http://127.0.0.1:9103/PassesPerStation/' + args.station + '/' + args.datefrom + '/' + args.dateto + '?format=' + args.format
+    url = 'http://127.0.0.1:9103/interoperability/api/PassesPerStation/' + args.station + '/' + args.datefrom + '/' + args.dateto + '?format=' + args.format
     r = requests.get(url)
     if(r.status_code == 200):
         print('200: Success')

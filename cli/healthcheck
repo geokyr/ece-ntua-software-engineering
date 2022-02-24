@@ -6,7 +6,7 @@ my_parser = argparse.ArgumentParser(description='checks if there is connection w
 args = my_parser.parse_args()
 
 try:
-    r = requests.get('http://127.0.0.1:9103/admin/healthcheck')
+    r = requests.get('http://127.0.0.1:9103/interoperability/api/admin/healthcheck')
     if(r.status_code == 200):
         print('200: Success')
     elif(r.status_code == 500):
