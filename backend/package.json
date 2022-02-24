@@ -6,7 +6,8 @@
   "scripts": {
     "test_backend": "env-cmd -f ./configuration/test.env jest --watch --detectOpenHandles ./tests_backend",
     "test_api": "env-cmd -f ./configuration/test.env jest --watch --detectOpenHandles ./tests_api",
-    "start": "env-cmd -f ./configuration/dev.env nodemon src/index.js"
+    "start": "env-cmd -f ./configuration/dev.env nodemon src/index.js",
+    "test_cli":"env-cmd -f ./configuration/test.env nodemon src/index.js"
   },
   "jest": {
     "testEnvironment": "node"
