@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 
 describe("API Testing", () => {
     beforeAll(async () => {
-        jest.setTimeout(5 * 1000);
         // A connection to a test database is created.
         connection = mongoose.createConnection(process.env.MONGODB_URL);
         db = mongoose.connection;
@@ -24,48 +23,6 @@ describe("API Testing", () => {
             const response = await request(app).get(
                 "/interoperability/api/admin/healthcheck"
             );
-            expect(200);
-        });
-       
-    });
-
-     // -------- Testing for "resetpasses endpoint" --------------------------------------------------------
-     describe("Testing 'admin/resetpasses'", () => {
-        it("should succeed if Passes collection is reset", async () => {
-            const response = await request(app).post(
-                "/interoperability/api/admin/resetpasses"
-            );
-            expect(200);
-        });
-        
-    });
-
-     // -------- Testing for "passesupd endpoint" --------------------------------------------------------
-     describe("Testing 'admin/passesupd'", () => { 
-        it("should fail because of wrong file type (.csv)", async () => {
-            const response = await request(app)
-                .post("/interoperability/api/admin/passesupd")
-                .query({
-                    filepath: "./passesTesting.pdf",
-                });
-            expect(400);
-        });
-       
-        it("should fail because of missing file", async () => {
-            const response = await request(app)
-                .post("/interoperability/api/admin/passesupd")
-                .query({
-                    filepath: "./NonExistentFile.csv",
-                });
-            expect(400);
-        });
-        
-        it("should succeed if passes should be added Passes collection", async () => {
-            const response = await request(app)
-                .post("/interoperability/api/admin/passesupd")
-                .query({
-                    filepath: "./passesTesting.csv",
-                });
             expect(200);
         });
     });

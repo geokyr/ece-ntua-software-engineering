@@ -26,6 +26,7 @@
 
 # Byte-compiled  optimized  DLL files
 __pycache__
+.pytest_cache
 
 # Installer logs
 pip-log.txt
