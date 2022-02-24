@@ -15,8 +15,8 @@
   
   .titleBox {
     /* flex:1; */
-    width: 45%;
-    aspect-ratio: 4;
+    /* width: 45%; */
+    /* aspect-ratio: 4; */
     /* height: 120px; */
     background-color: #000;
     display: flex;

@@ -8,8 +8,6 @@ import ButtonAppBar from "./ButtonAppBar";
 function App() {
     const [route, setRoute] = useState("Balance");
     const [company, setCompany] = useState("");
-
-    // useEffect(() => alert(route), route);
   
     return (
         <div className="appContainer">

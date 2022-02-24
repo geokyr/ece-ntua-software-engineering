@@ -12,7 +12,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:9103/PassesPerStation/KO01/20190101/20190110?format=csv",
+					"raw": "localhost:9103/interoperability/api/PassesPerStation/KO01/20190101/20190110?format=csv",
 					"host": [
 						"localhost"
 					],
@@ -40,7 +40,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:9103/PassesAnalysis/aodos/kentriki_odos/20211005/20211110?format=csv",
+					"raw": "localhost:9103/interoperability/api/PassesAnalysis/aodos/kentriki_odos/20211005/20211110?format=csv",
 					"host": [
 						"localhost"
 					],
@@ -69,7 +69,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:9103/PassesCost/aodos/gefyra/20211005/20211110?format=json",
+					"raw": "localhost:9103/interoperability/api/PassesCost/aodos/gefyra/20211005/20211110?format=json",
 					"host": [
 						"localhost"
 					],
@@ -98,7 +98,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:9103/ChargesBy/aodos/20211005/20211110?format=json",
+					"raw": "localhost:9103/interoperability/api/ChargesBy/aodos/20211005/20211110?format=json",
 					"host": [
 						"localhost"
 					],
@@ -126,7 +126,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:9103/admin/healthcheck",
+					"raw": "localhost:9103/interoperability/api/admin/healthcheck",
 					"host": [
 						"localhost"
 					],
@@ -146,7 +146,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "localhost:9103/admin/resetpasses",
+					"raw": "localhost:9103/interoperability/api/admin/resetpasses",
 					"host": [
 						"localhost"
 					],
@@ -166,7 +166,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "localhost:9103/admin/resetstations",
+					"raw": "localhost:9103/interoperability/api/admin/resetstations",
 					"host": [
 						"localhost"
 					],
@@ -186,7 +186,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "localhost:9103/admin/resetvehicles",
+					"raw": "localhost:9103/interoperability/api/admin/resetvehicles",
 					"host": [
 						"localhost"
 					],
