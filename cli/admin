@@ -12,7 +12,7 @@ args = my_parser.parse_args()
 
 if(args.passesupd):
     try:
-        r = requests.get('http://127.0.0.1:9103/interoperability/api/admin/passesupd?filepath=' + args.source)
+        r = requests.post('http://127.0.0.1:9103/interoperability/api/admin/passesupd?filepath=' + args.source)
         if(r.status_code == 200):
             print('200: Success')
         elif(r.status_code == 400):
