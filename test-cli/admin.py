@@ -22,3 +22,8 @@ def test_resetvehicles():
     command = my_path + '/cli/resetvehicles'
     out = subprocess.run(command.split(), stdout=subprocess.PIPE).stdout
     assert b'200: Success' in out
+
+def test_admin_passesupd():
+    command = my_path + '/cli/admin --passesupd --source ' + my_path + '/backend/passes.csv'
+    out = subprocess.run(command.split(), stdout=subprocess.PIPE).stdout
+    assert b'200: Success' in out
