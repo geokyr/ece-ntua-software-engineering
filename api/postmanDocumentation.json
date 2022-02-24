@@ -104,7 +104,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:9103/interoperability/api/ChargesBy/aodos/20211005/20211110?format=json",
+					"raw": "localhost:9103/interoperability/api/ChargesBy/aodos/20191005/20211110?format=json",
 					"host": [
 						"localhost"
 					],
@@ -114,7 +114,7 @@
 						"api",
 						"ChargesBy",
 						"aodos",
-						"20211005",
+						"20191005",
 						"20211110"
 					],
 					"query": [
@@ -156,7 +156,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:9103/interoperability/api/OperatorBalances/aodos/20191005/20171110?format=json",
+					"raw": "localhost:9103/interoperability/api/OperatorBalances/aodos/20191005/20201110?format=json",
 					"host": [
 						"localhost"
 					],
@@ -167,7 +167,7 @@
 						"OperatorBalances",
 						"aodos",
 						"20191005",
-						"20171110"
+						"20201110"
 					],
 					"query": [
 						{
