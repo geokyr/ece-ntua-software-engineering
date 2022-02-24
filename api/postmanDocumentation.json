@@ -12,21 +12,23 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:9103/interoperability/api/PassesPerStation/KO01/20190101/20190110?format=csv",
+					"raw": "localhost:9103/interoperability/api/PassesPerStation/KO01/20290312/20290312?format=json",
 					"host": [
 						"localhost"
 					],
 					"port": "9103",
 					"path": [
+						"interoperability",
+						"api",
 						"PassesPerStation",
 						"KO01",
-						"20190101",
-						"20190110"
+						"20290312",
+						"20290312"
 					],
 					"query": [
 						{
 							"key": "format",
-							"value": "csv"
+							"value": "json"
 						}
 					]
 				},
@@ -46,6 +48,8 @@
 					],
 					"port": "9103",
 					"path": [
+						"interoperability",
+						"api",
 						"PassesAnalysis",
 						"aodos",
 						"kentriki_odos",
@@ -75,6 +79,8 @@
 					],
 					"port": "9103",
 					"path": [
+						"interoperability",
+						"api",
 						"PassesCost",
 						"aodos",
 						"gefyra",
@@ -104,6 +110,8 @@
 					],
 					"port": "9103",
 					"path": [
+						"interoperability",
+						"api",
 						"ChargesBy",
 						"aodos",
 						"20211005",
@@ -132,11 +140,72 @@
 					],
 					"port": "9103",
 					"path": [
+						"interoperability",
+						"api",
 						"admin",
 						"healthcheck"
 					]
 				},
 				"description": "Checks if there is connection with database."
+			},
+			"response": []
+		},
+		{
+			"name": "OperatorBalances",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9103/interoperability/api/OperatorBalances/aodos/20191005/20171110?format=json",
+					"host": [
+						"localhost"
+					],
+					"port": "9103",
+					"path": [
+						"interoperability",
+						"api",
+						"OperatorBalances",
+						"aodos",
+						"20191005",
+						"20171110"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "YearlyPassesCount",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9103/interoperability/api/YearlyPassesCount/aodos/egnatia/20210101/20211231?format=json",
+					"host": [
+						"localhost"
+					],
+					"port": "9103",
+					"path": [
+						"interoperability",
+						"api",
+						"YearlyPassesCount",
+						"aodos",
+						"egnatia",
+						"20210101",
+						"20211231"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				}
 			},
 			"response": []
 		},
@@ -152,6 +221,8 @@
 					],
 					"port": "9103",
 					"path": [
+						"interoperability",
+						"api",
 						"admin",
 						"resetpasses"
 					]
@@ -172,6 +243,8 @@
 					],
 					"port": "9103",
 					"path": [
+						"interoperability",
+						"api",
 						"admin",
 						"resetstations"
 					]
@@ -192,11 +265,40 @@
 					],
 					"port": "9103",
 					"path": [
+						"interoperability",
+						"api",
 						"admin",
 						"resetvehicles"
 					]
 				},
 				"description": "Initialize vehicle collection in database."
+			},
+			"response": []
+		},
+		{
+			"name": "admin/passesupd",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:9103/interoperability/api/admin/passesupd?filepath=/filepath/passes.csv",
+					"host": [
+						"localhost"
+					],
+					"port": "9103",
+					"path": [
+						"interoperability",
+						"api",
+						"admin",
+						"passesupd"
+					],
+					"query": [
+						{
+							"key": "filepath",
+							"value": "/filepath/passes.csv"
+						}
+					]
+				}
 			},
 			"response": []
 		}

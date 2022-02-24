@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 
 describe("API Testing", () => {
     beforeAll(async () => {
-        jest.setTimeout(5 * 1000);
         // A connection to a test database is created.
         connection = mongoose.createConnection(process.env.MONGODB_URL);
         db = mongoose.connection;
@@ -26,9 +25,7 @@ describe("API Testing", () => {
             );
             expect(200);
         });
-       
     });
-
 
     // -------- Testing for "resetpasses endpoint" --------------------------------------------------------
     describe("Testing 'admin/resetpasses'", () => {
