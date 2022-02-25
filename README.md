@@ -39,4 +39,4 @@ $ mongorestore -d tldb database
 
 - If you wish to use the **CLI**, please follow the instructions documented on the **/cli** README.md.
 
-- If you wish to test the **API** or **CLI**, please follow the instruction documented on the **/test-api** or **/test-cli** README.md.
+- If you wish to test the **API**, **backend** or **CLI**, please follow the instruction documented on the **/test-api**, **/test-backend** or **/test-cli** README.md.
