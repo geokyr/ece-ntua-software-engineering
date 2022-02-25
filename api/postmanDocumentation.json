@@ -12,7 +12,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:9103/interoperability/api/PassesPerStation/KO01/20290312/20290312?format=json",
+					"raw": "localhost:9103/interoperability/api/PassesPerStation/KO01/20190312/20290312?format=json",
 					"host": [
 						"localhost"
 					],
@@ -22,7 +22,7 @@
 						"api",
 						"PassesPerStation",
 						"KO01",
-						"20290312",
+						"20190312",
 						"20290312"
 					],
 					"query": [
@@ -42,7 +42,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:9103/interoperability/api/PassesAnalysis/aodos/kentriki_odos/20211005/20211110?format=csv",
+					"raw": "localhost:9103/interoperability/api/PassesAnalysis/aodos/kentriki_odos/20211005/20211110?format=json",
 					"host": [
 						"localhost"
 					],
@@ -59,7 +59,7 @@
 					"query": [
 						{
 							"key": "format",
-							"value": "csv"
+							"value": "json"
 						}
 					]
 				},
