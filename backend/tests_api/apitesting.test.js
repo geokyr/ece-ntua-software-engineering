@@ -13,7 +13,7 @@ describe("API Testing", () => {
     afterAll(async () => {
         await db.dropDatabase();
         await db.close();
-        await connection.close;
+        await connection.close();
         //we reset the timeout value in the default value
         jest.setTimeout(5 * 1000);
     });
