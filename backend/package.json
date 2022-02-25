@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test_backend": "env-cmd -f ./configuration/test.env jest  ./tests_backend",
-    "test_api": "env-cmd -f ./configuration/test.env jest  ./tests_api",
+    "test_backend": "env-cmd -f ./configuration/test.env jest ./tests_backend",
+    "test_api": "env-cmd -f ./configuration/test.env jest ./tests_api",
     "start": "env-cmd -f ./configuration/dev.env nodemon src/index.js",
     "test_cli":"env-cmd -f ./configuration/test.env nodemon src/index.js"
   },
