@@ -1,9 +1,7 @@
 # CLI
 
 ## Instructions
-- Install python3, if not already installed:
-
-[Python3 Download](https://www.python.org/downloads/)
+- Install [python3](https://www.python.org/downloads/), if not already installed.
 
 - Install requests python package, if not already installed:
 ```
