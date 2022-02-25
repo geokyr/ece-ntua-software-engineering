@@ -18,6 +18,9 @@ $ PATH=$PATH:/home/username/TL21-23/cli
 - Use the CLI as specified in the documents, examples shown below:
 ```
 $ se2123 healthcheck
-$ se2123 chargesby --op1 aodos --datefrom 20211005 --dateto 20211110 --format json
-$ se2123 admin --passesupd --source /home/username/TL21-23/backend/passes.csv
+$ se2123 passesperstation --station AO10 --datefrom 20201101 --dateto 20201231 --format json
+$ se2123 passesanalysis --op1 aodos --op2 kentriki_odos --datefrom 20200101 --dateto 20200331 --format json
+$ se2123 passescost --op1 gefyra --op2 kentriki_odos --datefrom 20190101 --dateto 20201231 --format csv
+$ se2123 chargesby --op1 aodos --datefrom 20190101 --dateto 20190930 --format json
+$ se2123 admin --passesupd --source ./passes.csv
 ```
