@@ -1,4 +1,4 @@
-# cli
+# CLI
 
 ## Instructions
 - Install python3, if not already installed:
