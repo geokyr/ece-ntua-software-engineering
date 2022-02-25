@@ -1,6 +1,5 @@
 # Back-end
 
-Περιεχόμενα:
+- ### This folder includes the source code for the implementation of the backend.
 
-- Πηγαίος κώδικας εφαρμογής για εισαγωγή, διαχείριση και
-  πρόσβαση σε δεδομένα (backend).
+- ### To set up and run the backend, follow the instructions on the project README.md file

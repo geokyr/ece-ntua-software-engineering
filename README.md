@@ -25,7 +25,18 @@ $ npm install
 $ npm install
 ``` 
 
+- To download and install node_modules, navigate to **/frontend** and run: 
+```
+$ npm install
+``` 
+
+
 - To start the nodejs server and connect to the database, navigate to **/backend** and run: 
+```
+$ npm start
+``` 
+
+- To start the frontend, navigate to **/frontend** and run: 
 ```
 $ npm start
 ``` 
@@ -34,6 +45,7 @@ $ npm start
 ```
 $ mongorestore -d tldb database
 ```
+
 
 - Then, you will have a copy of the database and the server running on your local machine
 

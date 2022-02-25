@@ -1,6 +1,5 @@
-# database
+# Database
 
-Περιεχόμενα:
+- ### This folder includes the database dump.
 
-- Database dump (sql ή json)
-
+- ### To restore the database from this dump, follow the instructions on the project README.md file
