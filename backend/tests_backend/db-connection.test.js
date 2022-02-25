@@ -25,7 +25,7 @@ describe("Backend Testing", () => {
   afterAll(async () => {
     await db.dropDatabase();
     await db.close();
-    await connection.close;
+    await connection.close();
   });
 
 

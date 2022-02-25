@@ -6,14 +6,14 @@ describe("API Testing", () => {
     beforeAll(async () => {
         jest.setTimeout(5 * 1000);
         // A connection to a test database is created.
-        connection = mongoose.createConnection(process.env.MONGODB_URL);
+        connection =  mongoose.createConnection(process.env.MONGODB_URL);
         db = mongoose.connection;
     });
 
     afterAll(async () => {
         await db.dropDatabase();
         await db.close();
-        await connection.close;
+        await connection.close();
         //we reset the timeout value in the default value
         jest.setTimeout(5 * 1000);
     });
@@ -24,11 +24,9 @@ describe("API Testing", () => {
             const response = await request(app).get(
                 "/interoperability/api/admin/healthcheck"
             );
-            expect(200);
+            expect(response.status).toBe(200);
         });
-       
     });
-
 
     // -------- Testing for "resetpasses endpoint" --------------------------------------------------------
     describe("Testing 'admin/resetpasses'", () => {
@@ -36,7 +34,7 @@ describe("API Testing", () => {
             const response = await request(app).post(
                 "/interoperability/api/admin/resetpasses"
             );
-            expect(200);
+            expect(response.status).toBe(200);
         });
     });
 
@@ -49,15 +47,16 @@ describe("API Testing", () => {
                 .query({
                     filepath: "../passesTesting.pdf",
                 });
-            expect(400);
+            expect(response.status).toBe(400);
         });
+
         it("should fail because of missing file", async () => {
             const response = await request(app)
                 .post("/interoperability/api/admin/passesupd")
                 .query({
                     filepath: "../NonExistentFile.csv",
                 });
-            expect(400);
+            expect(response.status).toBe(500);
         });
 
         it("should succeed if passes should be added Passes collection", async () => {
@@ -66,7 +65,7 @@ describe("API Testing", () => {
                 .query({
                     filepath: "./passes.csv",
                 });
-            expect(200);
+            expect(response.status).toBe(200);
         });
     });
 
@@ -76,7 +75,7 @@ describe("API Testing", () => {
             const response = await request(app).post(
                 "/interoperability/api/admin/resetvehicles"
             );
-            expect(200);
+            expect(response.status).toBe(200)
         });
     });
 
@@ -86,7 +85,7 @@ describe("API Testing", () => {
             const response = await request(app).post(
                 "/interoperability/api/admin/resetstations"
             );
-            expect(200);
+            expect(response.status).toBe(200)
         });
     });
 
