@@ -1,7 +1,8 @@
 # Documentation
 
-Περιεχόμενα:
+Includes:
 
-- ΕΝΑ αρχείο Visual Paradigm με τα ζητούμενα διαγράμματα.
-- Εγγραφο SRS - Software Requirements Specification.
-- Εγγραφο StRS - Stakeholders Requirements Specification.
+* Hackolade - Database schema
+* Visual Paradigm file - Required documentation diagrams
+* SRS Document - Software Requirements Specification
+* StRS Documents - Stakeholders Requirements Specification
