@@ -11,7 +11,7 @@ Semester Project for the [**Software Engineering**](https://www.ece.ntua.gr/en/u
 
 ## Project Description
 
-This project's goal is to produce an **information system** that is responsible for the **interoperability on motorway tolls**. This will include a **backend** that will support data management functions between the different toll operators, a **CLI** that will be used to interact with the system, operating as a client on the backend's REST API and a **Web Application** that will be used to present the data to the end user, operating as a client on the backend's REST API, as well.
+This project's goal is to produce an **information system** that is responsible for the **interoperability on motorway tolls**. This will include a **backend** that will support data management functions between the different toll operators, a **CLI** that will be used to interact with the system, operating as a client on the **backend's REST API** and a **Web Application** that will be used to present the data to the end user, operating as a client on the **backend's REST API**, as well.
 
 ## Tools
 For the development of the application, we used the following tools:
