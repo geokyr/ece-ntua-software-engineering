@@ -22,6 +22,14 @@ For the development of the application, we used the following tools:
 - Source code: [**GitHub**](https://github.com/)
 - Testing: [**Jest**](https://jestjs.io/), [**pytest**](https://docs.pytest.org/en/7.3.x/)
 
+## Documentation
+Includes:
+
+- Hackolade - Database schema
+- Visual Paradigm file - Required documentation diagrams
+- SRS Document - Software Requirements Specification
+- StRS Documents - Stakeholders Requirements Specification
+
 ## Instructions
 - Make sure that you have the latest version of **Node.js** and **MongoDB** installed
 - Clone the project repository
@@ -39,5 +47,66 @@ npm start
 mongorestore -d tldb database
 ```
 - Then, you will have a copy of the database and the server running on your local machine
-- If you wish to use the **CLI**, please follow the instructions documented under the `/cli` directory.
-- If you wish to test the **API**, **backend** or **CLI**, please follow the instructions documented under the `/test-api`, `/test-backend` or `/test-cli` directories.
+
+## CLI
+
+- Install [**python3**](https://www.python.org/downloads/), if not already installed.
+- Install the `requests` python package, if not already installed:
+```
+pip install requests
+```
+- Add the **CLI** path to your OS `$PATH` to be able to run the **CLI** commands without the prefix `./` for the executables (e.g. as shown below, valid for one session):
+```
+PATH=$PATH:/home/username/ntua-software-engineering/cli
+```
+- Make sure the `mongod` process is running, that you have started the server and that it has connected to the database, as shown in the project's `README.md`.
+- Use the **CLI** as specified in the documents, some examples are shown below:
+```
+se2123 healthcheck
+se2123 passesperstation --station AO10 --datefrom 20201101 --dateto 20201231 --format json
+se2123 passesanalysis --op1 aodos --op2 kentriki_odos --datefrom 20200101 --dateto 20200331 --format json
+se2123 passescost --op1 gefyra --op2 kentriki_odos --datefrom 20190101 --dateto 20201231 --format csv
+se2123 chargesby --op1 aodos --datefrom 20190101 --dateto 20190930 --format json
+se2123 admin --passesupd --source ./passes.csv
+```
+
+## API Testing
+
+### Disclaimer
+- Due to limitations from the **Jest** testing framework, test suites have to be inside the `/api` folder.
+- The `apitesting.test.js` file present in this folder is a copy of the file used for testing that resides in the `/api/test_api` folder. It is **not** used during testing.
+
+### Instructions
+- In the `/api` folder run:
+```
+npm run test_api
+```
+
+## Backend Testing
+
+### Disclaimer
+- Due to limitations from the **Jest** testing framework, test suites have to be inside the `/backend` folder.
+- The `db-connection.test` file present in this folder is a copy of the file used for testing that resides in the `/backend/test_backend` folder. It is **not** used during testing.
+
+### Instructions
+- In the `/backend` folder run:
+```
+npm run test_backend
+```
+
+## CLI Testing
+
+- Follow the instructions documented on the **CLI's** `README.md`
+- This time, use the `tldb-test` database, by running the following on `/backend`:
+```
+npm run test_cli
+```
+- Install the `pytest` framework, if not already installed:
+```
+pip install pytest
+```
+- Run the `admin` and `main` tests using `pytest`, as shown below (follow this order):
+```
+pytest admin.py
+pytest main.py
+```
