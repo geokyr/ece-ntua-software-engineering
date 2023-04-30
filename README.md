@@ -30,7 +30,7 @@ Includes:
 - SRS Document - Software Requirements Specification
 - StRS Documents - Stakeholders Requirements Specification
 
-## Instructions
+## Deployment
 - Make sure that you have the latest version of **Node.js** and **MongoDB** installed
 - Clone the project repository
 - Make sure the `mongod` process is running
@@ -48,7 +48,7 @@ mongorestore -d tldb database
 ```
 - Then, you will have a copy of the database and the server running on your local machine
 
-## CLI
+## CLI Instructions
 
 - Install [**python3**](https://www.python.org/downloads/), if not already installed.
 - Install the `requests` python package, if not already installed:
