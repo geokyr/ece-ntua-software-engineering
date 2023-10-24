@@ -3,11 +3,11 @@
 Semester Project for the [Software Engineering](https://www.ece.ntua.gr/en/undergraduate/courses/3205) course, during the 7th semester of the School of Electrical and Computer Engineering at the National Technical University of Athens.
 
 ## Team 23 - Members
-- [Deligiannis Gerasimos](https://github.com/GerasimosDel)
-- [Garos Apostolis](https://github.com/ApostolisGaros)
-- [Kyriakopoulos Georgios](https://github.com/geokyr)
-- [Tzelepis Serafeim](https://github.com/sertze)
-- [Vlachakis Nikos](https://github.com/NikosVlachakis)
+- [Apostolis Garos](https://github.com/ApostolisGaros)
+- [Georgios Kyriakopoulos](https://github.com/geokyr)
+- [Gerasimos Deligiannis](https://github.com/GerasimosDel)
+- [Nikos Vlachakis](https://github.com/NikosVlachakis)
+- [Serafeim Tzelepis](https://github.com/sertze)
 
 ## Project Description
 
