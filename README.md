@@ -1,6 +1,6 @@
 # ece-ntua-software-engineering
 
-Semester Project for the [Software Engineering](https://www.ece.ntua.gr/en/undergraduate/courses/3205) course, during the 7th semester of the School of Electrical and Computer Engineering at the National Technical University of Athens.
+Semester Project and Exam Answers for the [Software Engineering](https://www.ece.ntua.gr/en/undergraduate/courses/3205) course, during the 7th semester of the School of Electrical and Computer Engineering at the National Technical University of Athens.
 
 ## Team 23 - Members
 - [Apostolis Garos](https://github.com/ApostolisGaros)
@@ -110,3 +110,10 @@ pip install pytest
 pytest admin.py
 pytest main.py
 ```
+
+## Exam Answers
+
+There was 1 exam in total. The naming convention is `YYx-identifier` where:
+- `YY` is the year of the exam
+- `x` is the exam type (a for the regural one and b for the retake one)
+- `identifier` is the identifier of the file (answers or questions)
