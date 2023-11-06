@@ -2,7 +2,7 @@
 
 Semester Project and Exam Answers for the [Software Engineering](https://www.ece.ntua.gr/en/undergraduate/courses/3205) course, during the 7th semester of the School of Electrical and Computer Engineering at the National Technical University of Athens.
 
-## Team 23 - Members
+## Contributors
 - [Apostolis Garos](https://github.com/ApostolisGaros)
 - [Georgios Kyriakopoulos](https://github.com/geokyr)
 - [Gerasimos Deligiannis](https://github.com/GerasimosDel)
