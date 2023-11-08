@@ -14,6 +14,7 @@ Semester Project and Exam Answers for the [Software Engineering](https://www.ece
 This project's goal is to produce an information system that is responsible for the interoperability on motorway tolls. This will include a backend that will support data management functions between the different toll operators, a CLI that will be used to interact with the system, operating as a client on the backend's REST API and a Web Application that will be used to present the data to the end user, operating as a client on the backend's REST API, as well.
 
 ## Tools
+
 For the development of the application, we used the following tools:
 
 - Design and architecture: [Visual Paradigm CE](https://www.visual-paradigm.com/download/community.jsp)
@@ -23,7 +24,6 @@ For the development of the application, we used the following tools:
 - Testing: [Jest](https://jestjs.io/), [pytest](https://docs.pytest.org/en/7.3.x/)
 
 ## Documentation
-Includes:
 
 - Hackolade - Database schema
 - Visual Paradigm file - Required documentation diagrams
@@ -31,6 +31,7 @@ Includes:
 - StRS Documents - Stakeholders Requirements Specification
 
 ## Deployment
+
 - Make sure that you have the latest version of Node.js and MongoDB installed
 - Clone the project repository
 - Make sure the `mongod` process is running
@@ -73,10 +74,12 @@ se2123 admin --passesupd --source ./passes.csv
 ## API Testing
 
 ### Disclaimer
+
 - Due to limitations from the Jest testing framework, test suites have to be inside the `/api` folder.
 - The `apitesting.test.js` file present in this folder is a copy of the file used for testing that resides in the `/api/test_api` folder. It is not used during testing.
 
 ### Instructions
+
 - In the `/api` folder run:
 ```
 npm run test_api
@@ -85,10 +88,12 @@ npm run test_api
 ## Backend Testing
 
 ### Disclaimer
+
 - Due to limitations from the Jest testing framework, test suites have to be inside the `/backend` folder.
 - The `db-connection.test` file present in this folder is a copy of the file used for testing that resides in the `/backend/test_backend` folder. It is not used during testing.
 
 ### Instructions
+
 - In the `/backend` folder run:
 ```
 npm run test_backend
